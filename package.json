@@ -1,0 +1,35 @@
+{
+  "name": "petdot-backend",
+  "version": "1.0.0",
+  "description": "![Em obras](https://yata.s3-object.locaweb.com.br/aff51a54cbba5ae8e7c9c2cd95c8575927cfb1b3d15c6288555e002f4cbeb62a)",
+  "main": "server.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexsandro-J-Ludwig/petdot-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexsandro-J-Ludwig/petdot-backend/issues"
+  },
+  "homepage": "https://github.com/Alexsandro-J-Ludwig/petdot-backend#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.2.3",
+    "sequelize": "^6.37.7",
+    "sequelize-typescript": "^2.1.6",
+    "sqlite3": "^5.1.7"
+  }
+}
