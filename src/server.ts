@@ -12,10 +12,12 @@ class Server{
         this.app = e();
         this.app.use(e.json());
         this.app.use(e.urlencoded({ extended: true }));
-        this.app.use(ErrorHandle.errorHandle)
 
         this.connection = new Connection();
 
+        this.initRoutes();
+
+        this.app.use(ErrorHandle.errorHandle)
     }
 
     private initRoutes(){
