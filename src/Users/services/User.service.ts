@@ -1,5 +1,11 @@
-import { AppError } from "../erros/App.errors.js";
-import { UserRepository } from "../repositorys/User.repository.js";
+import { AppError } from "../../erros/App.errors.ts";
+import { UserRepository } from "../repositorys/User.repository.ts";
+
+import type { UserDTO } from "../DTOs/User.dto.ts";
+import { UserResponseDTO } from "../DTOs/UserResponse.dto.ts";
+import { UserLoginDTO } from "../DTOs/UserLogin.dto.ts";
+import { UserUpdateDTO } from "../DTOs/UserUdate.dto.ts";
+
 import bcrypt from "bcryptjs";
 
 class UserService {
@@ -16,29 +22,32 @@ class UserService {
     };
 
     const response = await UserRepository.createUser(data);
-    return new UserResponseDTO(response);
+    return new UserResponseDTO(response.uuid!);
   }
 
-  static async getUser(dto: UserLoginDto) {
+  static async getUser(dto: UserLoginDTO) {
     const response = await UserRepository.getUserByEmail(dto.email);
     if (!response) throw AppError.notFound("Usuário");
 
     const passwordMatch = await bcrypt.compare(dto.pass, response.pass);
     if (!passwordMatch) throw AppError.unauthorized("Senhas não coincidem");
 
-    return new UserResponseDTO(response);
+    return new UserResponseDTO(response.uuid!);
   }
 
   static async updateUser(dto: UserUpdateDTO) {
     const existing = await UserRepository.getUserById(dto.uuid);
     if (!existing) throw AppError.notFound("Usuário");
 
+    let updatedData = { ...dto };
+
     if (dto.pass !== undefined && dto.pass !== null) {
-      dto.pass = await bcrypt.hash(dto.pass, 10);
+      const hashPass = await bcrypt.hash(dto.pass, 10);
+      updatedData = { ...updatedData, pass: hashPass };
     }
 
-    const response = await UserRepository.updateUser(dto);
-    return new UserResponseDTO(response);
+    await UserRepository.updateUser(updatedData);
+    return { message: "Dados de usuário atualizados com sucesso" };
   }
 
   static async deleteUser(uuid: string) {

@@ -9,7 +9,7 @@ interface UserModelProps {
     nivel_acesso: string;
 }
 
-interface UserModelOptional extends Optional<UserModelProps, "uuid"> {};
+interface UserModelOptional extends Optional<UserModelProps, "uuid" | "nivel_acesso"> {};
 
 class UserModel extends Model<UserModelProps, UserModelOptional>{
     public uuid?: string;

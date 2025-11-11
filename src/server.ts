@@ -2,6 +2,7 @@ import "dotenv/config"
 
 import { Connection } from "./config/db.config.js"
 import e, {type Application} from "express";
+import { ErrorHandle } from "./middleware/Errorhandle.ts";
 
 class Server{
     private connection: Connection;
@@ -11,6 +12,7 @@ class Server{
         this.app = e();
         this.app.use(e.json());
         this.app.use(e.urlencoded({ extended: true }));
+        this.app.use(ErrorHandle.errorHandle)
 
         this.connection = new Connection();
 
