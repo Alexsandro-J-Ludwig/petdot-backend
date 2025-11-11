@@ -12,4 +12,10 @@ class UserQueryDTO {
         UserValidator.validateEmail(this.email);
     }
   }
+
+  static fromRequest(params: any): UserQueryDTO {
+    return new UserQueryDTO(params.uuid, params.email);
+  }
 }
+
+export { UserQueryDTO };

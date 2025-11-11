@@ -2,9 +2,9 @@ import { UserValidator } from "./UserValidator.js";
 
 class UserResponseDTO {
     constructor(
-        public readonly uuid:string,
+        public readonly token:string,
     ){
-        UserValidator.validateUUID(uuid);
+        UserValidator.validarToken(token);
     }
 }
 

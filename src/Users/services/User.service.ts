@@ -1,12 +1,13 @@
 import { AppError } from "../../erros/App.errors.ts";
 import { UserRepository } from "../repositorys/User.repository.ts";
-
 import type { UserDTO } from "../DTOs/User.dto.ts";
 import { UserResponseDTO } from "../DTOs/UserResponse.dto.ts";
 import { UserLoginDTO } from "../DTOs/UserLogin.dto.ts";
-import { UserUpdateDTO } from "../DTOs/UserUdate.dto.ts";
+import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.ts";
 
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import {S3} from "aws-sdk";
 
 class UserService {
   static async createUser(dto: UserDTO) {
@@ -22,17 +23,38 @@ class UserService {
     };
 
     const response = await UserRepository.createUser(data);
-    return new UserResponseDTO(response.uuid!);
+
+    const token = jwt.sign({ uuid: response.uuid }, process.env.SKJWT!, {
+      expiresIn: 92600,
+    });
+
+    return new UserResponseDTO(token);
+  }
+
+  static async getURL() {
+    const r2 = new S3({
+      endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      
+    })
   }
 
   static async getUser(dto: UserLoginDTO) {
     const response = await UserRepository.getUserByEmail(dto.email);
     if (!response) throw AppError.notFound("Usuário");
 
-    const passwordMatch = await bcrypt.compare(dto.pass, response.pass);
+    const passwordMatch = await bcrypt.compare(
+      dto.pass,
+      response.dataValues.pass
+    );
     if (!passwordMatch) throw AppError.unauthorized("Senhas não coincidem");
+    console.log(response.dataValues);
 
-    return new UserResponseDTO(response.uuid!);
+    const token = jwt.sign(
+      { uuid: response.dataValues.uuid },
+      process.env.SKJWT!,
+      { expiresIn: 92600 }
+    );
+    return new UserResponseDTO(token);
   }
 
   static async updateUser(dto: UserUpdateDTO) {

@@ -2,7 +2,8 @@ import "dotenv/config"
 
 import { Connection } from "./config/db.config.js"
 import e, {type Application} from "express";
-import { ErrorHandle } from "./middleware/Errorhandle.ts";
+import { ErrorHandle } from "./middleware/ErrorHandle.ts";
+import { UserRoutes } from "./Users/routes/User.rotes.ts";
 
 class Server{
     private connection: Connection;
@@ -21,7 +22,8 @@ class Server{
     }
 
     private initRoutes(){
-
+        const userRoutes = new UserRoutes;
+        this.app.use("/user", userRoutes.routes);
     }
 
     public async start() {

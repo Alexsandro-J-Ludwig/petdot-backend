@@ -20,11 +20,11 @@ class UserRepository {
 
   static async updateUser(data: {
     uuid: string;
-    name?: string;
-    email?: string;
-    pass?: string;
-    celular?: string;
-    nivel_acesso?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+    pass?: string | undefined;
+    celular?: string | undefined;
+    nivel_acesso?: string | undefined;
   }) {
     const { uuid, ...fields } = data;
 

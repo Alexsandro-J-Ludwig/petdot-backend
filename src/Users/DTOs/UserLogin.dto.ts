@@ -8,6 +8,10 @@ class UserLoginDTO {
         UserValidator.validateEmail(this.email);
         UserValidator.validatePass(this.pass);
     }
+
+    static fromRequest(body: any): UserLoginDTO {
+        return new UserLoginDTO(body.email, body.pass);
+    }
 }
 
 export {UserLoginDTO}
