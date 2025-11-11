@@ -11,8 +11,8 @@ class Connection {
     }
     this.sequelize = new Sequelize(process.env.URL);
     
-    UserModel.initialize(this.sequelize)
-    AddressModel.initialize(this.sequelize)
+    UserModel.initialize(this.sequelize);
+    AddressModel.initialize(this.sequelize);
   }
 }
 

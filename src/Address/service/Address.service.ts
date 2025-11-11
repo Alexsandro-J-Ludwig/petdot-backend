@@ -1,37 +1,48 @@
 import { AppError } from "../../erros/App.errors.ts";
+import type { AddressDTO } from "../DTOs/Address.dto.ts";
+import { AddressResponseDTO } from "../DTOs/AddressResponse.dto.ts";
+import type { AddressUpdateDTO } from "../DTOs/AddressUpdate.dto.ts";
 import { AddressRepository } from "../repository/Address.repository.ts";
 
 class AddressService {
-    static async createAddress(dto: AddressDTO){
-        const existing = await AddressRepository.getAddress(dto.uuid_user);
-        if(existing) throw AppError.conflict("Address");
+  static async createAddress(dto: AddressDTO) {
+    const existing = await AddressRepository.getAddress(dto.uuid_user);
+    if (existing) throw AppError.conflict("Address");
 
-        await AddressRepository.createAddress(dto);
-        return { message: "Endereço criado" };
-    }
+    await AddressRepository.createAddress(dto);
+    return new AddressResponseDTO("Endereço criado com sucesso");
+  }
 
-    static async getAddress(uuid_user: string) {
-        const response = await AddressRepository.getAddress(uuid_user);
-        if(!response) throw AppError.notFound("Address");
+  static async getAddress(uuid_user: string) {
+    const response = await AddressRepository.getAddress(uuid_user);
+    if (!response) throw AppError.notFound("Address");
 
-        return response;
-    }
+    return new AddressResponseDTO(
+      response.address,
+      response.number,
+      response.complement,
+      response.neighborhood,
+      response.city,
+      response.state,
+      response.cep
+    );
+  }
 
-    static async updateAddress(dto: AddressUpdateDTO) {
-        const existing = await AddressRepository.getAddress(dto.uuid_user);
-        if(!existing) throw AppError.notFound("Address");
+  static async updateAddress(dto: AddressUpdateDTO) {
+    const existing = await AddressRepository.getAddress(dto.uuid_user);
+    if (!existing) throw AppError.notFound("Address");
 
-        const response = await AddressRepository.updateAddress(dto);
-        return response;
-    }
+    await AddressRepository.updateAddress(dto);
+    return new AddressResponseDTO("Endereço atualizado com sucesso");
+  }
 
-    static async deleteAddress(uuid_user: string) {
-        const existing = await AddressRepository.getAddress(uuid_user);
-        if(!existing) throw AppError.notFound("Address");
+  static async deleteAddress(uuid_user: string) {
+    const existing = await AddressRepository.getAddress(uuid_user);
+    if (!existing) throw AppError.notFound("Address");
 
-        await AddressRepository.deleteAddress(uuid_user);
-        return { message: "Endereço deletado" };
-    }
+    await AddressRepository.deleteAddress(uuid_user);
+    return new AddressResponseDTO("Endereço deletado com sucesso");
+  }
 }
 
 export { AddressService };

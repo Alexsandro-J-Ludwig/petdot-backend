@@ -1,3 +1,5 @@
+import { AddressValidator } from "./AddressValdiator.ts";
+
 class AddressDTO {
   constructor(
     public readonly address: string,
@@ -8,7 +10,9 @@ class AddressDTO {
     public readonly state: string,
     public readonly cep: string,
     public readonly uuid_user: string
-  ) {}
+  ) {
+    AddressValidator.validatorAll(this);
+  }
 
   static fromRequest(body: any): AddressDTO {
     return new AddressDTO(
@@ -23,3 +27,5 @@ class AddressDTO {
     );
   }
 }
+
+export { AddressDTO };
