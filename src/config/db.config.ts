@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import { UserModel } from "../Users/models/User.model.ts";
+import { AddressModel } from "../Address/model/Address.model.ts";
 
 class Connection {
   sequelize: Sequelize;
@@ -11,6 +12,7 @@ class Connection {
     this.sequelize = new Sequelize(process.env.URL);
     
     UserModel.initialize(this.sequelize)
+    AddressModel.initialize(this.sequelize)
   }
 }
 
