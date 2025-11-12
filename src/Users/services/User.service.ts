@@ -24,9 +24,13 @@ class UserService {
 
     const response = await UserRepository.createUser(data);
 
-    const token = jwt.sign({ uuid: response.uuid }, process.env.SKJWT!, {
-      expiresIn: 92600,
-    });
+    const token = jwt.sign(
+      { uuid: response.uuid, acesso: response.nivel_acesso },
+      process.env.SKJWT!,
+      {
+        expiresIn: 92600,
+      }
+    );
 
     return new UserResponseDTO(token, "Usuário criado com sucesso");
   }
@@ -34,7 +38,7 @@ class UserService {
   // static async getURL() {
   //   const r2 = new S3({
   //     endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-      
+
   //   })
   // }
 
@@ -50,10 +54,11 @@ class UserService {
     console.log(response.dataValues);
 
     const token = jwt.sign(
-      { uuid: response.dataValues.uuid },
+      { uuid: response.dataValues.uuid, acess: response.nivel_acesso },
       process.env.SKJWT!,
       { expiresIn: 92600 }
     );
+
     return new UserResponseDTO(token, "Usuário autenticado com sucesso");
   }
 

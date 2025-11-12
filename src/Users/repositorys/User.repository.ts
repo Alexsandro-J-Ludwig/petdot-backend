@@ -1,31 +1,19 @@
 import { UserModel } from "../models/User.model.js";
 
 class UserRepository {
-  static async createUser(data: {
-    name: string;
-    email: string;
-    pass: string;
-    celular: string;
-  }) {
+  static async createUser(data: any): Promise<UserModel> {
     return await UserModel.create(data);
   }
 
-  static async getUserById(uuid: string) {
+  static async getUserById(uuid: string): Promise<UserModel | null> {
     return await UserModel.findOne({ where: { uuid } });
   }
 
-  static async getUserByEmail(email: string) {
+  static async getUserByEmail(email: string): Promise<UserModel | null> {
     return await UserModel.findOne({ where: { email } });
   }
 
-  static async updateUser(data: {
-    uuid: string;
-    name?: string | undefined;
-    email?: string | undefined;
-    pass?: string | undefined;
-    celular?: string | undefined;
-    nivel_acesso?: string | undefined;
-  }) {
+  static async updateUser(data: any): Promise<[affectedCount: number]> {
     const { uuid, ...fields } = data;
 
     const update = Object.fromEntries(
@@ -35,7 +23,7 @@ class UserRepository {
     return await UserModel.update(update, { where: { uuid } });
   }
 
-  static async deleteUser(uuid: string) {
+  static async deleteUser(uuid: string): Promise<number> {
     return await UserModel.destroy({ where: { uuid } });
   }
 }

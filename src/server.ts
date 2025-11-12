@@ -7,6 +7,7 @@ import { ErrorHandle } from "./middleware/ErrorHandle.ts";
 import { UserRoutes } from "./Users/routes/User.rotes.ts";
 import { AddressRotue } from "./Address/routes/AddressRoutes.ts";
 import { ShelterRoutes } from "./shelter/routes/Shelter.routes.ts";
+import { AnimalRoutes } from "./Animal/route/Animal.route.ts";
 
 class Server {
   private connection: Connection;
@@ -33,6 +34,9 @@ class Server {
 
     const shelterRoutes = new ShelterRoutes();
     this.app.use("/shelter", shelterRoutes.routes);
+
+    const animalRoutes = new AnimalRoutes();
+    this.app.use("/animal", animalRoutes.routes);
   }
 
   public async start() {

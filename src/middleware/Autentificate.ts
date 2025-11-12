@@ -3,8 +3,32 @@ import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "../erros/App.errors.ts";
 
+interface JwtPayload {
+  acess: number;
+}
+
 class Autentificate{
     static async validateToken(req: Request, res:Response, next: NextFunction){
+        const token = Autentificate.getToken(req)
+
+        const decode = jwt.verify(token, process.env.SKJWT!);
+
+        (req as any).user = decode;
+
+        next()
+    }
+
+    static async validateAdminAcess(req: Request, res: Response, next: NextFunction){
+        const token = Autentificate.getToken(req)
+
+        const decode = jwt.verify(token, process.env.SKJWT!) as JwtPayload;
+
+        if(decode.acess !== 2) throw AppError.unauthorized("Acess");
+
+        next()
+    }
+
+    static getToken(req: Request){
         const authHeader = req.headers.authorization;
         const token = authHeader && authHeader.split(" ")[1];
 
@@ -12,11 +36,7 @@ class Autentificate{
             throw AppError.unauthorized("Token");
         }
 
-        const decode = jwt.verify(token, process.env.SKJWT!);
-
-        (req as any).user = decode;
-
-        next()
+        return token;
     }
 }
 

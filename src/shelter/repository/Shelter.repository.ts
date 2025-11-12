@@ -1,15 +1,7 @@
 import { ShelterModel } from "../model/Shelter.model.ts";
 
 class ShelterRepository {
-  static async createShelter(data: {
-    name: string;
-    cnpj: string;
-    description: string;
-    uuid_address: string;
-    phonenumber: string;
-    email: string;
-    uuid_user: string;
-  }) {
+  static async createShelter(data: any): Promise<ShelterModel> {
     return ShelterModel.create(data);
   };
 
@@ -17,24 +9,15 @@ class ShelterRepository {
     return await ShelterModel.findByPk(uuid);
   };
 
-  static async getAllShelters() {
+  static async getAllShelters(): Promise<ShelterModel[]> {
     return await ShelterModel.findAll();
   };
 
-  static async getByUser(uuid_user: string){
+  static async getByUser(uuid_user: string): Promise<ShelterModel[]> {
     return await ShelterModel.findAll({ where: {uuid_user}});
   };
 
-  static async updateShelter(data: {
-    uuid: string;
-    name?: string | undefined;
-    cnpj?: string | undefined;
-    description?: string | undefined;
-    uuid_address?: string | undefined;
-    phonenumber?: string | undefined;
-    email?: string | undefined;
-    uuid_user?: string | undefined;
-  }) {
+  static async updateShelter(data: any): Promise<[affectedCount: number]>  {
     const { uuid, ...fields } = data;
 
     const update = Object.fromEntries(
@@ -44,7 +27,7 @@ class ShelterRepository {
     return await ShelterModel.update(update, { where: { uuid } });
   }
 
-  static async deleteShelter(uuid: string) {
+  static async deleteShelter(uuid: string): Promise<number> {
     return await ShelterModel.destroy({ where: { uuid } });
   }
 }
