@@ -2,9 +2,10 @@ import { UserValidator } from "./UserValidator.js";
 
 class UserResponseDTO {
     constructor(
-        public readonly token:string,
+        public readonly token?: string,
+        public readonly message?: string
     ){
-        UserValidator.validarToken(token);
+        if(token !== undefined) UserValidator.validarToken(token);
     }
 }
 

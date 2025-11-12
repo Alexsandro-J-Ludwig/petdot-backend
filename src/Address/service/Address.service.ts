@@ -10,22 +10,14 @@ class AddressService {
     if (existing) throw AppError.conflict("Address");
 
     await AddressRepository.createAddress(dto);
-    return new AddressResponseDTO("Endereço criado com sucesso");
+    return new AddressResponseDTO("", "Endereço criado com sucesso");
   }
 
   static async getAddress(uuid_user: string) {
     const response = await AddressRepository.getAddress(uuid_user);
     if (!response) throw AppError.notFound("Address");
 
-    return new AddressResponseDTO(
-      response.address,
-      response.number,
-      response.complement,
-      response.neighborhood,
-      response.city,
-      response.state,
-      response.cep
-    );
+    return new AddressResponseDTO(response, "Endereço encontrado com sucesso");
   }
 
   static async updateAddress(dto: AddressUpdateDTO) {
@@ -33,7 +25,7 @@ class AddressService {
     if (!existing) throw AppError.notFound("Address");
 
     await AddressRepository.updateAddress(dto);
-    return new AddressResponseDTO("Endereço atualizado com sucesso");
+    return new AddressResponseDTO("", "Endereço atualizado com sucesso");
   }
 
   static async deleteAddress(uuid_user: string) {
@@ -41,7 +33,7 @@ class AddressService {
     if (!existing) throw AppError.notFound("Address");
 
     await AddressRepository.deleteAddress(uuid_user);
-    return new AddressResponseDTO("Endereço deletado com sucesso");
+    return new AddressResponseDTO("", "Endereço deletado com sucesso");
   }
 }
 

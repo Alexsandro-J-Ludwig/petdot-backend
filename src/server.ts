@@ -3,7 +3,10 @@ import "dotenv/config";
 import { Connection } from "./config/db.config.js";
 import e, { type Application } from "express";
 import { ErrorHandle } from "./middleware/ErrorHandle.ts";
+
 import { UserRoutes } from "./Users/routes/User.rotes.ts";
+import { AddressRotue } from "./Address/routes/AddressRoutes.ts";
+import { ShelterRoutes } from "./shelter/routes/Shelter.routes.ts";
 
 class Server {
   private connection: Connection;
@@ -25,8 +28,11 @@ class Server {
     const userRoutes = new UserRoutes();
     this.app.use("/user", userRoutes.routes);
 
-    const addressRoutes = new UserRoutes();
+    const addressRoutes = new AddressRotue();
     this.app.use("/address", addressRoutes.routes);
+
+    const shelterRoutes = new ShelterRoutes();
+    this.app.use("/shelter", shelterRoutes.routes);
   }
 
   public async start() {

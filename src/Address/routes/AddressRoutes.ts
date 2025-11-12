@@ -16,3 +16,5 @@ class AddressRotue{
         this.routes.delete("/delete", Autentificate.validateToken, AddressController.deleteAddress);
     }
 }
+
+export { AddressRotue };

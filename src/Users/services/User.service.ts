@@ -7,7 +7,7 @@ import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.ts";
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import {S3} from "aws-sdk";
+// import {S3} from "aws-sdk";
 
 class UserService {
   static async createUser(dto: UserDTO) {
@@ -28,15 +28,15 @@ class UserService {
       expiresIn: 92600,
     });
 
-    return new UserResponseDTO(token);
+    return new UserResponseDTO(token, "Usuário criado com sucesso");
   }
 
-  static async getURL() {
-    const r2 = new S3({
-      endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  // static async getURL() {
+  //   const r2 = new S3({
+  //     endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
       
-    })
-  }
+  //   })
+  // }
 
   static async getUser(dto: UserLoginDTO) {
     const response = await UserRepository.getUserByEmail(dto.email);
@@ -54,7 +54,7 @@ class UserService {
       process.env.SKJWT!,
       { expiresIn: 92600 }
     );
-    return new UserResponseDTO(token);
+    return new UserResponseDTO(token, "Usuário autenticado com sucesso");
   }
 
   static async updateUser(dto: UserUpdateDTO) {
@@ -69,7 +69,7 @@ class UserService {
     }
 
     await UserRepository.updateUser(updatedData);
-    return { message: "Dados de usuário atualizados com sucesso" };
+    return new UserResponseDTO("", "Usuário atualizado com sucesso");
   }
 
   static async deleteUser(uuid: string) {
@@ -77,7 +77,7 @@ class UserService {
     if (!existing) throw AppError.notFound("Usuário");
 
     await UserRepository.deleteUser(uuid);
-    return { message: "Usuário deletado com sucesso" };
+    return new UserResponseDTO("", "Usuário deletado com sucesso");
   }
 }
 
