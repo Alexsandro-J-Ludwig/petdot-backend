@@ -3,17 +3,20 @@ import "dotenv/config";
 import { Connection } from "./config/db.config.js";
 import e, { type Application } from "express";
 import { ErrorHandle } from "./middleware/ErrorHandle.ts";
+import { Logger } from "./utils/Logger.ts";
 
 import { UserRoutes } from "./Users/routes/User.rotes.ts";
 import { AddressRotue } from "./Address/routes/AddressRoutes.ts";
 import { ShelterRoutes } from "./shelter/routes/Shelter.routes.ts";
-import { AnimalRoutes } from "./Animal/route/Animal.route.ts";
+import { AnimalRoutes } from "./animal/route/Animal.route.ts";
 
 class Server {
   private connection: Connection;
   private app: Application;
+  private logger: Logger = new Logger();
 
   constructor() {
+    this.logger.logInfo("Iniciando o servidor...");
     this.app = e();
     this.app.use(e.json());
     this.app.use(e.urlencoded({ extended: true }));
@@ -37,19 +40,22 @@ class Server {
 
     const animalRoutes = new AnimalRoutes();
     this.app.use("/animal", animalRoutes.routes);
+
+    const adoptionRoutes = new AddressRotue();
+    this.app.use("/adoption", adoptionRoutes.routes);
   }
 
   public async start() {
     try {
       await this.connection.sequelize.authenticate();
       await this.connection.sequelize.sync();
-      console.log("Banco de dados conectado");
+      this.logger.logInfo("Banco de dados conectado");
 
       this.app.listen(process.env.PORT, () => {
-        console.log(`Servidor rodando na porta: ${process.env.PORT}`);
+        this.logger.logInfo(`Servidor rodando na porta: ${process.env.PORT}`);
       });
     } catch (err: any) {
-      console.error(`Erro ao conectar ao servido, ${err}`);
+      this.logger.logError(`Erro ao conectar ao servido, ${err}`);
     }
   }
 }

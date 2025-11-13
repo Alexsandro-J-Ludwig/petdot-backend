@@ -1,4 +1,5 @@
 import { DataTypes as DT, Model, type Optional } from "sequelize";
+import sequelize from "sequelize/lib/sequelize";
 
 interface AnimalModelProps {
     uuid?: string;

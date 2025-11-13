@@ -2,7 +2,6 @@ import type { Request, Response } from "express";
 import { UserDTO } from "../DTOs/User.dto.ts";
 import { asyncHandler } from "../../utils/AsyncHandler.ts";
 import { UserService } from "../services/User.service.ts";
-import { UserQueryDTO } from "../DTOs/UserQuery.dto.ts";
 import { UserLoginDTO } from "../DTOs/UserLogin.dto.ts";
 import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.ts";
 
@@ -13,10 +12,10 @@ class UserController {
     res.status(201).json({ sucess: true, data: response });
   });
 
-  static getURL = asyncHandler(async (_: Request, res: Response) => {
-    const response = await UserService.getURL();
-    res.status(201).json({ sucess: true, data: response})
-  })
+  // static getURL = asyncHandler(async (_: Request, res: Response) => {
+  //   const response = await UserService.getURL();
+  //   res.status(201).json({ sucess: true, data: response})
+  // })
 
   static getUser = asyncHandler(async (req: Request, res: Response) => {
     const dto = UserLoginDTO.fromRequest(req.body);

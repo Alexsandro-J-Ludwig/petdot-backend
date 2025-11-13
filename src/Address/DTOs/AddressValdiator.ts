@@ -1,6 +1,6 @@
 import validator from "validator";
-import { AppError } from "../../erros/App.errors.ts";
 const { isEmpty, isUUID } = validator;
+import { AppError } from "../../erros/App.errors.ts";
 
 class AddressValidator {
   static validatorAddress(address: string) {
