@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import validator from "validator";
 const { isEmpty, isEmail, isUUID, isJWT } = validator;
 
@@ -24,7 +25,12 @@ class UserValidator {
   }
 
   static validarToken(token: string) {
-    if (!isJWT(token)) throw AppError.badRequest("Token invalido");
+    try {
+      const pureToken = token.replace(/^Bearer\s+/i, "");
+      return jwt.verify(pureToken, process.env.SKJWT as string);
+    } catch (err) {
+      throw AppError.badRequest("Token invalido");
+    }
   }
 
   static validateAll({

@@ -18,7 +18,7 @@ class UserModel extends Model<UserModelProps, UserModelOptional>{
     public pass!: string;
     public celular!: string;
     public nivel_acesso?: string;
-    
+
     static initialize(sequelize: any) {
         UserModel.init(
             {

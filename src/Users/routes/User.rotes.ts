@@ -1,5 +1,5 @@
 import { UserController } from "../controlls/User.controller.ts";
-import { Autentificate } from "../../middleware/autentificate.ts";
+import { Autentificate } from "../../middleware/Autentificate.ts";
 
 import { Router } from "express";
 
@@ -13,7 +13,7 @@ class UserRoutes {
 
   initRoutes() {
     this.routes.post("/create", UserController.createUser);
-    this.routes.get("/getURL", UserController.getURL);
+    // this.routes.get("/getURL", UserController.getURL);
     this.routes.post("/get", UserController.getUser);
     this.routes.put(
       "/update",

@@ -26,7 +26,7 @@ class UserService {
 
     const token = jwt.sign(
       { uuid: response.uuid, acesso: response.nivel_acesso },
-      process.env.SKJWT!,
+      process.env.SKJWT as string,
       {
         expiresIn: 92600,
       }
@@ -51,11 +51,10 @@ class UserService {
       response.dataValues.pass
     );
     if (!passwordMatch) throw AppError.unauthorized("Senhas não coincidem");
-    console.log(response.dataValues);
 
     const token = jwt.sign(
-      { uuid: response.dataValues.uuid, acess: response.nivel_acesso },
-      process.env.SKJWT!,
+      { uuid: response.dataValues.uuid, acess: response.dataValues.nivel_acesso },
+      process.env.SKJWT as string,
       { expiresIn: 92600 }
     );
 
