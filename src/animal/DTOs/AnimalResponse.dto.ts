@@ -1,15 +1,15 @@
 class AnimalResponseDTO {
   constructor(
     public readonly uuid: string | undefined,
-    public readonly name: string,
-    public readonly redemption_date: Date,
-    public readonly species: string,
-    public readonly race: string,
-    public readonly gender: string,
-    public readonly vaccines: string,
-    public readonly uuid_shelter: string,
-    public readonly description?: string,
-    public readonly message?: string
+    public readonly name: string | undefined,
+    public readonly redemption_date: Date | undefined,
+    public readonly species: string | undefined,
+    public readonly race: string | undefined,
+    public readonly gender: string | undefined,
+    public readonly vaccines: string | undefined,
+    public readonly uuid_shelter: string | undefined,
+    public readonly description?: string | undefined,
+    public readonly message?: string | {}
   ) {}
 
   static fromResponse(response: any): AnimalResponseDTO {

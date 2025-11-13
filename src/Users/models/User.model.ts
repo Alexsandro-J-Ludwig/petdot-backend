@@ -7,9 +7,10 @@ interface UserModelProps {
     pass: string;
     celular: string;
     nivel_acesso: string;
+    imageURL: string;
 }
 
-interface UserModelOptional extends Optional<UserModelProps, "uuid" | "nivel_acesso"> {};
+interface UserModelOptional extends Optional<UserModelProps, "uuid" | "nivel_acesso" | "imageURL"> {};
 
 class UserModel extends Model<UserModelProps, UserModelOptional>{
     public uuid?: string;
@@ -18,6 +19,7 @@ class UserModel extends Model<UserModelProps, UserModelOptional>{
     public pass!: string;
     public celular!: string;
     public nivel_acesso?: string;
+    public imageURL?: string;
 
     static initialize(sequelize: any) {
         UserModel.init(
@@ -49,6 +51,11 @@ class UserModel extends Model<UserModelProps, UserModelOptional>{
                     type: DT.STRING,
                     defaultValue: 1,
                     allowNull: false
+                },
+                imageURL: {
+                    type: DT.STRING,
+                    defaultValue: null,
+                    allowNull: true,
                 }
             },
             {

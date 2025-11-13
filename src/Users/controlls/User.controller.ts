@@ -4,6 +4,7 @@ import { asyncHandler } from "../../utils/AsyncHandler.ts";
 import { UserService } from "../services/User.service.ts";
 import { UserLoginDTO } from "../DTOs/UserLogin.dto.ts";
 import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.ts";
+import { UserUploadDTO } from "../DTOs/UserUpload.dto.ts";
 
 class UserController {
   static createUser = asyncHandler(async (req: Request, res: Response) => {
@@ -12,10 +13,11 @@ class UserController {
     res.status(201).json({ sucess: true, data: response });
   });
 
-  // static getURL = asyncHandler(async (_: Request, res: Response) => {
-  //   const response = await UserService.getURL();
-  //   res.status(201).json({ sucess: true, data: response})
-  // })
+  static getURL = asyncHandler(async (req: Request, res: Response) => {
+    const dto = UserUploadDTO.fromRequest(req.body, req.headers);
+    const response = await UserService.getURL(dto);
+    res.status(201).json({ sucess: true, data: response });
+  });
 
   static getUser = asyncHandler(async (req: Request, res: Response) => {
     const dto = UserLoginDTO.fromRequest(req.body);
@@ -24,8 +26,11 @@ class UserController {
   });
 
   static updateUser = asyncHandler(async (req: Request, res: Response) => {
-    console.log((req as any).user); 
-    const dto = UserUpdateDTO.fromRequest({ users: (req as any).user, body: req.body });
+    console.log((req as any).user);
+    const dto = UserUpdateDTO.fromRequest({
+      users: (req as any).user,
+      body: req.body,
+    });
     const response = UserService.updateUser(dto);
     res.status(200).json({ sucess: true, data: response });
   });
@@ -34,6 +39,6 @@ class UserController {
     const response = UserService.deleteUser((req as any).user.uuid);
     res.status(200).json({ sucess: true, data: response });
   });
-};
+}
 
 export { UserController };

@@ -13,7 +13,7 @@ class UserRoutes {
 
   initRoutes() {
     this.routes.post("/create", UserController.createUser);
-    // this.routes.get("/getURL", UserController.getURL);
+    this.routes.post("/getURL", UserController.getURL);
     this.routes.post("/get", UserController.getUser);
     this.routes.put(
       "/update",

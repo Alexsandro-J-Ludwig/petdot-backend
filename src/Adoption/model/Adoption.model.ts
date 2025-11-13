@@ -1,5 +1,4 @@
 import { DataTypes as DT, Model, type Optional } from "sequelize";
-import sequelize from "sequelize/lib/sequelize";
 
 interface AdoptionModelProps {
     uuid?: string;
@@ -54,7 +53,5 @@ class AdoptionModel extends Model<AdoptionModelProps, AdoptionModelOptional> {
         );
     }
 }
-
-AdoptionModel.inicialize(sequelize);
 
 export { AdoptionModel };

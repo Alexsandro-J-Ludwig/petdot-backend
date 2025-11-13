@@ -1,5 +1,4 @@
 import { DataTypes as DT, Model, type Optional } from "sequelize";
-import sequelize from "sequelize/lib/sequelize";
 
 interface AnimalModelProps {
     uuid?: string;
@@ -12,6 +11,7 @@ interface AnimalModelProps {
     description?: string;
     uuid_shelter: string;
     disponible?: boolean;
+    imageURL: string[];
 };
 
 interface AnimalModelOptional extends Optional<AnimalModelProps, "uuid" | "description" | "disponible"> {};
@@ -27,6 +27,7 @@ class AnimalModel extends Model<AnimalModelProps, AnimalModelOptional> {
     public description!: string;
     public uuid_shelter!: string;
     public disponible!: boolean;
+    public imageURL!: string[];
 
     static inicialize(sequelize: any) {
         AnimalModel.init(
@@ -77,6 +78,10 @@ class AnimalModel extends Model<AnimalModelProps, AnimalModelOptional> {
                     type: DT.BOOLEAN,
                     defaultValue: true,
                     allowNull: false,
+                },
+                imageURL: {
+                    type: DT.ARRAY(DT.STRING),
+                    allowNull: true,
                 }
             }, {
                 sequelize: sequelize,

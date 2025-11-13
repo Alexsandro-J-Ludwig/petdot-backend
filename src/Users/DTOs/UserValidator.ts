@@ -24,13 +24,9 @@ class UserValidator {
     if (!isUUID(uuid)) throw AppError.badRequest("Invalid UUID");
   }
 
-  static validarToken(token: string) {
-    try {
-      const pureToken = token.replace(/^Bearer\s+/i, "");
-      return jwt.verify(pureToken, process.env.SKJWT as string);
-    } catch (err) {
-      throw AppError.badRequest("Token invalido");
-    }
+  static validarCelular(celular: string) {
+    if (isEmpty(celular))
+      throw AppError.badRequest("Callphone cannot be empty");
   }
 
   static validateAll({
@@ -47,8 +43,7 @@ class UserValidator {
     this.validateName(name);
     this.validateEmail(email);
     this.validatePass(pass);
-    if (isEmpty(celular))
-      throw AppError.badRequest("Callphone cannot be empty");
+    this.validarCelular(celular);
   }
 }
 

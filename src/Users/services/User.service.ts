@@ -7,9 +7,15 @@ import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.ts";
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-// import {S3} from "aws-sdk";
+import { S3, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { randomUUID } from "node:crypto";
+import type { UserUploadDTO } from "../DTOs/UserUpload.dto.ts";
+import { Logger } from "../../utils/Logger.ts";
 
 class UserService {
+  private logger: Logger = new Logger();
+
   static async createUser(dto: UserDTO) {
     const existing = await UserRepository.getUserByEmail(dto.email);
 
@@ -31,16 +37,40 @@ class UserService {
         expiresIn: 92600,
       }
     );
-
+    
+    new Logger().logInfo(`User created: ${new Date()}`);
     return new UserResponseDTO(token, "Usuário criado com sucesso");
   }
 
-  // static async getURL() {
-  //   const r2 = new S3({
-  //     endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  static async getURL(dto: UserUploadDTO) {
+    const r2 = new S3({
+      endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      region: "auto",
+      credentials: {
+        accessKeyId: process.env.R2_ACESS_KEY as string,
+        secretAccessKey: process.env.R2_SECRET_KEY as string,
+      },
+    });
 
-  //   })
-  // }
+    const bucket = process.env.R2_BUCKET as string;
+
+    const key = `upload/${randomUUID()}/${dto.filename}`;
+
+    const command = new PutObjectCommand({
+      Bucket: bucket,
+      Key: key,
+      ContentType: dto.contentType,
+    });
+
+    const uploadURL = await getSignedUrl(r2, command, { expiresIn: 120 });
+
+    const publicURL = `https://${bucket}.${
+      process.env.R2_ACCOUNT_ID as string
+    }.r2.cloudflarestorage.com/${key}`;
+
+    new Logger().logInfo("Url build with sucess")
+    return new UserResponseDTO(undefined, { uploadURL, publicURL });
+  }
 
   static async getUser(dto: UserLoginDTO) {
     const response = await UserRepository.getUserByEmail(dto.email);
@@ -53,7 +83,10 @@ class UserService {
     if (!passwordMatch) throw AppError.unauthorized("Senhas não coincidem");
 
     const token = jwt.sign(
-      { uuid: response.dataValues.uuid, acess: response.dataValues.nivel_acesso },
+      {
+        uuid: response.dataValues.uuid,
+        acess: response.dataValues.nivel_acesso,
+      },
       process.env.SKJWT as string,
       { expiresIn: 92600 }
     );
@@ -73,6 +106,20 @@ class UserService {
     }
 
     await UserRepository.updateUser(updatedData);
+
+    const response = await UserRepository.getUserById(dto.uuid);
+
+    if (dto.nivel_acesso !== undefined && response) {
+      jwt.sign(
+        {
+          uuid: response.dataValues.uuid,
+          acesso: response.dataValues.nivel_acesso,
+        },
+        process.env.SKJWT as string,
+        { expiresIn: 92600 }
+      );
+    }
+    new Logger().logInfo("User was updated")
     return new UserResponseDTO("", "Usuário atualizado com sucesso");
   }
 
@@ -81,6 +128,8 @@ class UserService {
     if (!existing) throw AppError.notFound("Usuário");
 
     await UserRepository.deleteUser(uuid);
+
+    new Logger().logInfo("User was deleted")
     return new UserResponseDTO("", "Usuário deletado com sucesso");
   }
 }
