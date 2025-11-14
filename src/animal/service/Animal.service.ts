@@ -4,7 +4,6 @@ import { AnimalDTO } from "../DTOs/Animal.dto.ts";
 import { AnimalResponseDTO } from "../DTOs/AnimalResponse.dto.ts";
 import { AnimalUpdateDTO } from "../DTOs/AnimalUpdate.dto.ts";
 import { AnimalRepository } from "../repository/Animal.repository.ts";
-import { randomUUID } from "crypto";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import type { AnimalUploadDTO } from "../DTOs/AnimalUpload.dto.ts";
 import { Logger } from "../../utils/Logger.ts";
@@ -34,7 +33,7 @@ class AnimalService {
     });
   }
 
-  static async sendURL(uuid:string, dto: AnimalUploadDTO) {
+  static async getURL(dto: AnimalUploadDTO) {
     const r2 = new S3({
       endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
       region: "auto",
@@ -46,7 +45,7 @@ class AnimalService {
 
     const bucket = process.env.R2_BUCKET as string;
 
-    const key = `upload/${uuid}/${dto.filename}`;
+    const key = `upload/${dto.uuid}/${dto.filename}`;
 
     const command = new PutObjectCommand({
       Bucket: bucket,

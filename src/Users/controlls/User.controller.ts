@@ -27,7 +27,6 @@ class UserController {
   });
 
   static updateUser = asyncHandler(async (req: Request, res: Response) => {
-    console.log((req as any).user);
     const dto = UserUpdateDTO.fromRequest({
       users: (req as any).user,
       body: req.body,

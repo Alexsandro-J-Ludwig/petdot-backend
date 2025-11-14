@@ -3,6 +3,7 @@ import { AnimalDTO } from "../DTOs/Animal.dto.ts";
 import { AnimalService } from "../service/Animal.service.ts";
 import { asyncHandler } from "../../utils/AsyncHandler.ts";
 import { AnimalUpdateDTO } from "../DTOs/AnimalUpdate.dto.ts";
+import { AnimalUploadDTO } from "../DTOs/AnimalUpload.dto.ts";
 
 class AnimalController {
     static create = asyncHandler(async(req: Request, res: Response) => {
@@ -11,11 +12,9 @@ class AnimalController {
         res.status(201).json(response);
     })
 
-
-    //Você parou aqui
     static getURL = asyncHandler(async(req: Request, res: Response) => {
         const dto = AnimalUploadDTO.fromRequest(req.body, req.headers);
-        const response = await AnimalService.sendURL(dto);
+        const response = await AnimalService.getURL(dto);
         res.status(200).json(response);
     })
 

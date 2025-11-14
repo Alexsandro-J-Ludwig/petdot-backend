@@ -22,9 +22,11 @@ class AddressUpdateDTO {
     if (cep !== undefined) AddressValidator.validatorCep(cep);
   }
 
-  static fromRequest(body: any): AddressUpdateDTO {
+  static fromRequest(user: any, body: any): AddressUpdateDTO {
+    console.log(user, body);
+    
     return new AddressUpdateDTO(
-      body.uuid_user,
+      user,
       body.address,
       body.number,
       body.complement,

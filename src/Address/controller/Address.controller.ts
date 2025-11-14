@@ -3,13 +3,11 @@ import { AddressService } from "../service/Address.service.ts";
 import { AddressDTO } from "../DTOs/Address.dto.ts";
 import { asyncHandler } from "../../utils/AsyncHandler.ts";
 import type { AddressResponseDTO } from "../DTOs/AddressResponse.dto.ts";
+import { AddressUpdateDTO } from "../DTOs/AddressUpdate.dto.ts";
 
 class AddressController {
   static createAddress = asyncHandler(async (req: Request, res: Response) => {
-    const dto = AddressDTO.fromRequest({
-      ...req.body,
-      uuid_user: (req as any).user.uuid_user,
-    });
+    const dto = AddressDTO.fromRequest((req as any).user.uuid, req.body);
 
     const response: AddressResponseDTO = await AddressService.createAddress(
       dto
@@ -19,28 +17,25 @@ class AddressController {
 
   static getAddress = asyncHandler(async (req: Request, res: Response) => {
     const response: AddressResponseDTO = await AddressService.getAddress(
-      (req as any).user.uuid_user
+      (req as any).user.uuid
     );
 
     res.status(200).json(response);
   });
 
   static updateAddress = asyncHandler(async (req: Request, res: Response) => {
-    const dto = AddressDTO.fromRequest({
-      ...req.body,
-      uuid_user: (req as any).user.uuid_user,
-    });
+    const dto = AddressUpdateDTO.fromRequest((req as any).user.uuid, req.body);
 
     const response: AddressResponseDTO = await AddressService.updateAddress(
       dto
     );
-    
+
     res.status(200).json(response);
   });
 
   static deleteAddress = asyncHandler(async (req: Request, res: Response) => {
     const response: AddressResponseDTO = await AddressService.deleteAddress(
-      (req as any).user.uuid_user
+      (req as any).user.uuid
     );
 
     res.status(200).json(response);

@@ -14,7 +14,8 @@ class AddressDTO {
     AddressValidator.validatorAll(this);
   }
 
-  static fromRequest(body: any): AddressDTO {
+  static fromRequest(user: any, body: any): AddressDTO {
+    
     return new AddressDTO(
       body.address,
       body.number,
@@ -23,7 +24,7 @@ class AddressDTO {
       body.city,
       body.state,
       body.cep,
-      body.uuid_user
+      user
     );
   }
 }

@@ -33,7 +33,7 @@ class Autentificate{
         const token = authHeader && authHeader.split(" ")[1];
 
         if(!token) {
-            throw AppError.unauthorized("Token");
+            throw AppError.unauthorized("Token invalid");
         }
 
         return token;

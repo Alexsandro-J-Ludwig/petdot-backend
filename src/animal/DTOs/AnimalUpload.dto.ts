@@ -5,7 +5,7 @@ class AnimalUploadDTO {
     public readonly contentType: string
   ) {}
 
-  static fromResponse(body: any, headers: any): AnimalUploadDTO {
+  static fromRequest(body: any, headers: any): AnimalUploadDTO {
     return new AnimalUploadDTO(body.uuid, body.filename, headers.contentType);
   }
 }
