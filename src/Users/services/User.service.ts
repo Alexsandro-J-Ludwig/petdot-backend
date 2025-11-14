@@ -1,21 +1,17 @@
 import { AppError } from "../../erros/App.errors.ts";
 import { UserRepository } from "../repositorys/User.repository.ts";
-import type { UserDTO } from "../DTOs/User.dto.ts";
+import { UserDTO } from "../DTOs/User.dto.ts";
 import { UserResponseDTO } from "../DTOs/UserResponse.dto.ts";
 import { UserLoginDTO } from "../DTOs/UserLogin.dto.ts";
 import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.ts";
-
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { S3, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { randomUUID } from "node:crypto";
-import type { UserUploadDTO } from "../DTOs/UserUpload.dto.ts";
+import { UserUploadDTO } from "../DTOs/UserUpload.dto.ts";
 import { Logger } from "../../utils/Logger.ts";
 
 class UserService {
-  private logger: Logger = new Logger();
-
   static async createUser(dto: UserDTO) {
     const existing = await UserRepository.getUserByEmail(dto.email);
 
@@ -31,14 +27,15 @@ class UserService {
     const response = await UserRepository.createUser(data);
 
     const token = jwt.sign(
-      { uuid: response.uuid, acesso: response.nivel_acesso },
-      process.env.SKJWT as string,
       {
-        expiresIn: 92600,
-      }
+        uuid: response.dataValues.uuid,
+        acess: response.dataValues.nivel_acesso,
+      },
+      process.env.SKJWT as string,
+      { expiresIn: 92600 }
     );
     
-    new Logger().logInfo(`User created: ${new Date()}`);
+    new Logger().logInfo(`User created. ${Date.now()}`);
     return new UserResponseDTO(token, "Usuário criado com sucesso");
   }
 
@@ -47,31 +44,27 @@ class UserService {
       endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
       region: "auto",
       credentials: {
-        accessKeyId: process.env.R2_ACESS_KEY as string,
-        secretAccessKey: process.env.R2_SECRET_KEY as string,
+        accessKeyId: process.env.R2_ACESS_KEY!,
+        secretAccessKey: process.env.R2_SECRET_KEY!,
       },
     });
-
-    const bucket = process.env.R2_BUCKET as string;
-
-    const key = `upload/${randomUUID()}/${dto.filename}`;
-
+  
+    const bucket = process.env.R2_BUCKET!;
+    const key = `upload/${dto.uuid}/${dto.filename}`;
+  
     const command = new PutObjectCommand({
       Bucket: bucket,
       Key: key,
       ContentType: dto.contentType,
     });
-
+  
     const uploadURL = await getSignedUrl(r2, command, { expiresIn: 120 });
-
-    const publicURL = `https://${bucket}.${
-      process.env.R2_ACCOUNT_ID as string
-    }.r2.cloudflarestorage.com/${key}`;
-
-    new Logger().logInfo("Url build with sucess")
-    return new UserResponseDTO(undefined, { uploadURL, publicURL });
+  
+    const publicURL = `https://pub-0f7462610d0045a4b620fb4ed1b36606.r2.dev/${key}`;
+  
+    return new UserResponseDTO(undefined, "", uploadURL, publicURL);
   }
-
+  
   static async getUser(dto: UserLoginDTO) {
     const response = await UserRepository.getUserByEmail(dto.email);
     if (!response) throw AppError.notFound("Usuário");
@@ -91,6 +84,7 @@ class UserService {
       { expiresIn: 92600 }
     );
 
+    new Logger().logInfo("User authenticated successfully")
     return new UserResponseDTO(token, "Usuário autenticado com sucesso");
   }
 
@@ -119,6 +113,7 @@ class UserService {
         { expiresIn: 92600 }
       );
     }
+    
     new Logger().logInfo("User was updated")
     return new UserResponseDTO("", "Usuário atualizado com sucesso");
   }

@@ -11,6 +11,14 @@ class AnimalController {
         res.status(201).json(response);
     })
 
+
+    //Você parou aqui
+    static getURL = asyncHandler(async(req: Request, res: Response) => {
+        const dto = AnimalUploadDTO.fromRequest(req.body, req.headers);
+        const response = await AnimalService.sendURL(dto);
+        res.status(200).json(response);
+    })
+
     static getById = asyncHandler(async(req: Request, res: Response) => {
         const { uuid } = req.params;
         const response = await AnimalService.getById(uuid!);

@@ -13,7 +13,10 @@ class ShelterValidation {
   }
 
   static validatorCnpj(cnpj: string) {
+    const isCNPJ = /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/
+    
     if (isEmpty(cnpj)) throw AppError.badRequest("Cnpj cannot be empty");
+    if (!isCNPJ.test(cnpj)) throw AppError.badRequest("Invalid Cnpj format");
   }
 
   static validatorUuid_address(uuid_address: string) {

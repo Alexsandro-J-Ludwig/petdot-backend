@@ -1,4 +1,5 @@
 import { AppError } from "../../erros/App.errors.ts";
+import { Logger } from "../../utils/Logger.ts";
 import type { AdoptionDTO } from "../DTOs/Adoption.dto.ts";
 import { AdoptionResponseDTO } from "../DTOs/AdoptionResponse.ts";
 import { AdoptionModel } from "../model/Adoption.model.ts";
@@ -10,7 +11,10 @@ class AdoptionService {
     if (existing) throw AppError.conflict("Animal já adotado");
 
     const response = await AdoptionRepository.create(dto);
-    return new AdoptionResponseDTO("Adotado com sucesso", response);
+
+    new Logger().logInfo(`Adoption created. ${new Date().toISOString()}`);
+
+    return new AdoptionResponseDTO("", "Adotado com sucesso");
   }
 
   static async getAdoptionByUuid(uuid: string): Promise<AdoptionResponseDTO> {

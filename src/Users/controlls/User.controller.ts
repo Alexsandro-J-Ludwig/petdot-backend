@@ -14,9 +14,10 @@ class UserController {
   });
 
   static getURL = asyncHandler(async (req: Request, res: Response) => {
-    const dto = UserUploadDTO.fromRequest(req.body, req.headers);
+    const dto = UserUploadDTO.fromRequest((req as any).user.uuid, req.body, req.headers);
     const response = await UserService.getURL(dto);
-    res.status(201).json({ sucess: true, data: response });
+
+    res.status(200).json({ sucess: true, data: response });
   });
 
   static getUser = asyncHandler(async (req: Request, res: Response) => {

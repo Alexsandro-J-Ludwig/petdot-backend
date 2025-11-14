@@ -9,7 +9,8 @@ class AnimalDTO {
     public readonly gender: string,
     public readonly vaccines: string,
     public readonly uuid_shelter: string,
-    public readonly description?: string
+    public readonly description?: string,
+    public readonly imageURL: string[] = [],
   ) {
     AnimalValidation.valdiatorAll(this);
   }
@@ -23,7 +24,8 @@ class AnimalDTO {
       body.gender,
       body.vaccines,
       body.uuid_shelter,
-      body.description
+      body.description,
+      body.imageURL,
     );
   }
 }
