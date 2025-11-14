@@ -5,7 +5,9 @@ import { AdoptionDTO } from "../DTOs/Adoption.dto.ts";
 
 class AdoptionController{
     static create = asyncHandler(async (req: Request, res: Response) => {
-        const dto = AdoptionDTO.fromRequest(req.body);
+        console.log((req as any).user.uuid, req.body);
+        
+        const dto = AdoptionDTO.fromRequest((req as any).user.uuid, req.body);
         const response =  await AdoptionService.createAdoption(dto);
         res.status(201).json(response);
     }) 
@@ -15,13 +17,13 @@ class AdoptionController{
         res.status(200).json(response);
     })
 
-    static getAll = asyncHandler(async (req: Request, res: Response) => {
+    static getAll = asyncHandler(async (_: Request, res: Response) => {
         const responses = await AdoptionService.getAllAdoptions();
         res.status(200).json(responses);
     })
 
     static getByUserUuid = asyncHandler(async (req: Request, res: Response) => {
-        const responses = await AdoptionService.getAdoptionsByUserUuid(req.params.uuid_user!);
+        const responses = await AdoptionService.getAdoptionsByUserUuid((req as any).user.uuid);
         res.status(200).json(responses);
     })
 

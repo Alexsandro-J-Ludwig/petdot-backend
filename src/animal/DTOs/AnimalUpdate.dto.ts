@@ -2,6 +2,7 @@ import { AnimalValidation } from "./AnimalValidation.ts";
 
 class AnimalUpdateDTO {
   constructor(
+    public readonly uuid: string,
     public readonly name: string,
     public readonly redemption_date: Date,
     public readonly species: string,
@@ -21,8 +22,9 @@ class AnimalUpdateDTO {
     if (uuid_shelter) AnimalValidation.validatorUUID_shelter(uuid_shelter);
   }
 
-  static fromRequest(body: any): AnimalUpdateDTO {
+  static fromRequest(params: any, body: any): AnimalUpdateDTO {
     return new AnimalUpdateDTO(
+      params,
       body.name,
       body.redemption_date,
       body.species,

@@ -10,9 +10,9 @@ class AdoptionDTO {
     AdoptionValidation.validatorAll(this);
   }
 
-  static fromRequest(body: any): AdoptionDTO {
+  static fromRequest(user: any, body: any): AdoptionDTO {    
     return new AdoptionDTO(
-      body.uuid_user,
+      user,
       body.uuid_animal,
       body.uuid_shelter,
       body.adoption_date,

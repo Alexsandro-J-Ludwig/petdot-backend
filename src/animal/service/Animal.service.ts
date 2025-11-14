@@ -14,8 +14,14 @@ class AnimalService {
       dto.uuid_shelter
     );
 
-    if (existing.map((item) => item.name).includes(dto.name))
-      throw AppError.conflict("Animal");
+    if (
+      existing.some(
+        (animal) =>
+          animal.dataValues.name === dto.name &&
+          animal.dataValues.disponible === true
+      )
+    )
+      throw AppError.conflict("Animal ja existe");
 
     if (!dto.vaccines)
       throw AppError.badRequest("Vaccines information is required");
@@ -25,11 +31,11 @@ class AnimalService {
 
     const response = await AnimalRepository.createAnimal(dto);
 
-    new Logger().logInfo(`Animal created`);
-
     return AnimalResponseDTO.fromResponse({
+      uuid: response.dataValues.uuid,
       ...response.get(),
       message: "sucess",
+      publicURL: response.dataValues.imageURL,
     });
   }
 
@@ -57,16 +63,12 @@ class AnimalService {
 
     const publicURL = `https://pub-0f7462610d0045a4b620fb4ed1b36606.r2.dev/${key}`;
 
-    new Logger().logInfo(`Generated upload URL`);
-
     return AnimalResponseDTO.fromURL(uploadURL, publicURL);
   }
 
   static async getById(uuid: string): Promise<AnimalResponseDTO | null> {
     const response = await AnimalRepository.getAnimalById(uuid);
-    if (!response) throw AppError.notFound("Animal");
-
-    new Logger().logInfo(`Animal consulted by ID`);
+    if (!response) throw AppError.notFound("Animal not found");
 
     return AnimalResponseDTO.fromResponse({
       ...response.get(),
@@ -77,8 +79,6 @@ class AnimalService {
   static async getAll(): Promise<AnimalResponseDTO[]> {
     const response = await AnimalRepository.getAllAnimals();
     if (!response) throw AppError.notFound("Animal");
-
-    new Logger().logInfo(`All animals consulted`);
 
     return response.map((item) =>
       AnimalResponseDTO.fromResponse({ ...item.get(), message: "sucess" })
@@ -91,23 +91,18 @@ class AnimalService {
     const response = await AnimalRepository.getAnimalByShelter(uuid_shelter);
     if (!response) throw AppError.notFound("Animal");
 
-    new Logger().logInfo(`Animals consulted by shelter ID`);
-
     return response.map((item) =>
       AnimalResponseDTO.fromResponse({ ...item.get(), message: "sucess" })
     );
   }
 
   static async update(
-    uuid: string,
     dto: AnimalUpdateDTO
   ): Promise<AnimalResponseDTO> {
-    const existing = await AnimalRepository.getAnimalById(uuid);
+    const existing = await AnimalRepository.getAnimalById(dto.uuid);
     if (!existing) throw AppError.notFound("Animal");
 
-    const response = await AnimalRepository.updateAnimal({ uuid, ...dto });
-
-    new Logger().logInfo(`Animal updated with UUID: ${uuid}`);
+    const response = await AnimalRepository.updateAnimal(dto);
 
     return AnimalResponseDTO.fromResponse({ message: "sucess" });
   }
@@ -117,8 +112,6 @@ class AnimalService {
     if (!existing) throw AppError.notFound("Animal");
 
     await AnimalRepository.deleteAnimal(uuid);
-
-    new Logger().logInfo(`Animal deleted with UUID: ${uuid}`);
 
     return AnimalResponseDTO.fromResponse({ message: "sucess" });
   }

@@ -19,8 +19,7 @@ class AnimalController {
     })
 
     static getById = asyncHandler(async(req: Request, res: Response) => {
-        const { uuid } = req.params;
-        const response = await AnimalService.getById(uuid!);
+        const response = await AnimalService.getById(req.params.id!);
         res.status(200).json(response);
     })
 
@@ -30,19 +29,18 @@ class AnimalController {
     })
 
     static getByShelter = asyncHandler(async(req: Request, res: Response) => {
-        const { uuid_shelter } = req.params;
-        const response = await AnimalService.getByShelter(uuid_shelter!);
+        const response = await AnimalService.getByShelter(req.params.id!);
         res.status(200).json(response);
     })
 
     static update = asyncHandler(async(req: Request, res: Response) => {
-        const dto = AnimalUpdateDTO.fromRequest(req.body);
-        const response = await AnimalService.update(req.params.uuid!, dto);
+        const dto = AnimalUpdateDTO.fromRequest(req.params.id, req.body);
+        const response = await AnimalService.update(dto);
         res.status(200).json(response);
     })
 
     static delete = asyncHandler(async(req: Request, res: Response) => {
-        const response = await AnimalService.delete(req.params.uuid!);
+        const response = await AnimalService.delete(req.params.id!);
         res.status(200).json(response);
     })
 }

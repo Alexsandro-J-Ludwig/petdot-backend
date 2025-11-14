@@ -66,8 +66,8 @@ class ShelterModel extends Model<ShelterModelOptional, ShelterModelProps> {
             },
             {
                 sequelize: sequelize,
-                modelName: "Shelters",
-                tableName: "shelters",
+                modelName: "Shelter",
+                tableName: "shelter",
                 freezeTableName: true,
                 timestamps: true
             }

@@ -1,4 +1,5 @@
 import { AppError } from "../../erros/App.errors.ts";
+import { UserService } from "../../Users/services/User.service.ts";
 import { Logger } from "../../utils/Logger.ts";
 import type { ShelterDTO } from "../DTOs/Shelter.dto.ts";
 import { ShelterResponseDTO } from "../DTOs/ShelterResponse.dto.ts";
@@ -8,57 +9,58 @@ import { ShelterRepository } from "../repository/Shelter.repository.ts";
 class ShelterService {
   static async createShelter(dto: ShelterDTO) {
     const existing = await ShelterRepository.getByUser(dto.uuid_user);
-    if (existing.values.name === dto.name) throw AppError.conflict("Shelter");
-
+    if (existing.some((shelter) => shelter.dataValues.cnpj === dto.cnpj))
+      throw AppError.conflict("Shelter alredy exist");
+    
     const response = await ShelterRepository.createShelter(dto);
 
-    new Logger().logInfo(
-      `Shelter created with UUID: ${response.dataValues.uuid}`
-    );
+    response.dataValues.uuid_user = "";
+
     return new ShelterResponseDTO(response.dataValues, "Shelter was created");
   }
 
   static async getShelterById(uuid: string) {
+    console.log(uuid);
+    
     const response = await ShelterRepository.getShelterById(uuid);
-    if (!response) throw AppError.notFound("Shelter");
+    if (!response) throw AppError.notFound("Shelter not found");
 
-    new Logger().logInfo(`Shelter consulted with UUID`);
+    response.dataValues.uuid_user = "";
+
     return new ShelterResponseDTO(response.dataValues, "Shelter found");
   }
 
   static async getAllShelter() {
     const response = await ShelterRepository.getAllShelters();
-    if (response.length === 0) throw AppError.notFound("Shelter");
+    if (response.length === 0) throw AppError.notFound("Shelter not found");
 
-    new Logger().logInfo(`All shelters consulted`);
+    response.map((item) => item.dataValues.uuid_user = "")
     return new ShelterResponseDTO(response, "Shelters found");
   }
 
   static async getByUser(uuid_user: string) {
     const response = await ShelterRepository.getByUser(uuid_user);
-    if (response.length === 0) throw AppError.notFound("Shelter");
+    if (response.length === 0) throw AppError.notFound("Shelter not found");
 
-    new Logger().logInfo(`Shelter consulted by user UUID`);
+    response.map((item) => item.dataValues.uuid_user = "")
     return new ShelterResponseDTO(response, "Shelter found");
   }
 
   static async updateShelter(dto: ShelterUpdateDTO) {
     const existing = await ShelterRepository.getShelterById(dto.uuid);
-    if (!existing) throw AppError.notFound("Shelter");
+    if (!existing) throw AppError.notFound("Shelter not found");
 
     await ShelterRepository.updateShelter(dto);
 
-    new Logger().logInfo(`Shelter updated with UUID: ${dto.uuid}`);
     return new ShelterResponseDTO("", "Shelter was updated");
   }
 
   static async deleteShelter(uuid: string) {
     const existing = await ShelterRepository.getShelterById(uuid);
-    if (!existing) throw AppError.notFound("Shelter");
+    if (!existing) throw AppError.notFound("Shelter not found");
 
     await ShelterRepository.deleteShelter(uuid);
 
-    new Logger().logInfo(`Shelter deleted with UUID: ${uuid}`);
     return new ShelterResponseDTO("", "Shelter was deleted");
   }
 }

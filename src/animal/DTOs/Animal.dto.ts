@@ -16,6 +16,8 @@ class AnimalDTO {
   }
 
   static fronRequest(body: any): AnimalDTO {
+    console.log(body);
+    
     return new AnimalDTO(
       body.name,
       body.redemption_date,

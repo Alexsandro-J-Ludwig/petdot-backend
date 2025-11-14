@@ -13,11 +13,11 @@ class ShelterRoutes {
 
     initRoutes(){
         this.routes.post('/create', Autentificate.validateToken, ShelterController.createShelter);
-        this.routes.get('/getByID:id', Autentificate.validateToken, ShelterController.getShelterById);
+        this.routes.get('/getByID/:id', Autentificate.validateToken, ShelterController.getShelterById);
         this.routes.get('/get', Autentificate.validateToken, ShelterController.getAllShelter);
-        this.routes.get('/getByUser', Autentificate.validateToken, ShelterController.getByUser);
-        this.routes.put('/update:id', Autentificate.validateToken, ShelterController.updateShelter);
-        this.routes.delete('/delete:id', Autentificate.validateToken, ShelterController.deleteShelter);
+        this.routes.get('/getUser', Autentificate.validateToken, ShelterController.getByUser);
+        this.routes.put('/:id', Autentificate.validateToken, ShelterController.updateShelter);
+        this.routes.delete('/:id', Autentificate.validateToken, ShelterController.deleteShelter);
     }
 }
 

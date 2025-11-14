@@ -9,6 +9,7 @@ import { UserRoutes } from "./Users/routes/User.rotes.ts";
 import { AddressRotue } from "./Address/routes/AddressRoutes.ts";
 import { ShelterRoutes } from "./shelter/routes/Shelter.routes.ts";
 import { AnimalRoutes } from "./animal/route/Animal.route.ts";
+import { AdoptionRoutes } from "./Adoption/routes/Adoption.routes.ts";
 
 class Server {
   private connection: Connection;
@@ -41,8 +42,8 @@ class Server {
     const animalRoutes = new AnimalRoutes();
     this.app.use("/animal", animalRoutes.routes);
 
-    const adoptionRoutes = new AddressRotue();
-    this.app.use("/adoption", adoptionRoutes.routes);
+    const adoptionRoutes = new AdoptionRoutes();
+    this.app.use("/adoption", adoptionRoutes.router);
   }
 
   public async start() {

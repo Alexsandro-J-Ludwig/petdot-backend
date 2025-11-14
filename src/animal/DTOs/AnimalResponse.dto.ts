@@ -27,7 +27,7 @@ class AnimalResponseDTO {
       response.description || "",
       response.message || "",
       "",
-      "",
+      response.publicURL || "",
     );
   }
 

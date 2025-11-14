@@ -18,13 +18,14 @@ router: Router;
       AdoptionController.create,
     );
     this.router.get(
-      "/getById/:uuid",
+      "/:uuid",
       Autentificate.validateToken,
       AdoptionController.getByUuid,
     );
     this.router.get(
-      "/getAll",
+      "/get",
       Autentificate.validateToken,
+      Autentificate.validateAdminAcess,
       AdoptionController.getAll,
     );
     this.router.get(

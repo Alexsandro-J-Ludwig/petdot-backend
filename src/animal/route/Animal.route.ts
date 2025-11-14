@@ -14,37 +14,39 @@ class AnimalRoutes {
 
   initRoutes() {
     this.routes.post(
-      "/create",
+      "/",
       Autentificate.validateToken,
       Autentificate.validateAdminAcess,
       AnimalController.create
     );
     this.routes.get(
-      "/getById/:id",
-      Autentificate.validateToken,
+      "/url", Autentificate.validateToken,
       Autentificate.validateAdminAcess,
+      AnimalController.getURL
+    )
+    this.routes.get(
+      "/get/:id",
+      Autentificate.validateToken,
       AnimalController.getById
     );
     this.routes.get(
-      "/getAll",
+      "/get",
       Autentificate.validateToken,
-      Autentificate.validateAdminAcess,
       AnimalController.getAll
     );
     this.routes.get(
-      "/getByShelter/:uuid_shelter ",
+      "/getByShelter/:id",
       Autentificate.validateToken,
-      Autentificate.validateAdminAcess,
       AnimalController.getByShelter
     );
     this.routes.put(
-      "/update/:id",
+      "/:id",
       Autentificate.validateToken,
       Autentificate.validateAdminAcess,
       AnimalController.update
     );
     this.routes.delete(
-      "/delete/:id",
+      "/:id",
       Autentificate.validateToken,
       Autentificate.validateAdminAcess,
       AnimalController.delete

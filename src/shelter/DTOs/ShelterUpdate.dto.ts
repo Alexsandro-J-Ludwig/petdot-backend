@@ -26,14 +26,14 @@ class ShelterUpdateDTO {
 
   static fromRequest(params: any, body: any) {
     return new ShelterUpdateDTO(
-      params.uuid,
-      body.name,
-      body.cnpj,
-      body.description,
-      body.uuid_address,
-      body.phonenumber,
-      body.email,
-      body.uuid_user
+      params.id,
+      body.name || undefined,
+      body.cnpj || undefined,
+      body.description || undefined,
+      body.uuid_address || undefined,
+      body.phonenumber || undefined,
+      body.email || undefined,
+      body.uuid_user || undefined
     );
   };
 };

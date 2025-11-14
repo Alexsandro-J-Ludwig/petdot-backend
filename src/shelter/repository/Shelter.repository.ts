@@ -13,7 +13,7 @@ class ShelterRepository {
     return await ShelterModel.findAll();
   };
 
-  static async getByUser(uuid_user: string): Promise<ShelterModel[]> {
+  static async getByUser(uuid_user: string): Promise<ShelterModel[]> {    
     return await ShelterModel.findAll({ where: {uuid_user}});
   };
 

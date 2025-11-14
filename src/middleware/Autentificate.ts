@@ -22,8 +22,8 @@ class Autentificate{
         const token = Autentificate.getToken(req)
 
         const decode = jwt.verify(token, process.env.SKJWT as string) as JwtPayload;
-
-        if(decode.acess !== 2) throw AppError.unauthorized("Acess");
+        
+        if(decode.acess != 2) throw AppError.unauthorized("Acesso negado");
 
         next()
     }

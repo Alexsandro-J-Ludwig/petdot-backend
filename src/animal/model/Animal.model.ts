@@ -14,7 +14,7 @@ interface AnimalModelProps {
     imageURL: string[];
 };
 
-interface AnimalModelOptional extends Optional<AnimalModelProps, "uuid" | "description" | "disponible"> {};
+interface AnimalModelOptional extends Optional<AnimalModelProps, "uuid" | "description" | "disponible" | "imageURL"> {};
 
 class AnimalModel extends Model<AnimalModelProps, AnimalModelOptional> {
     public uuid?: string;
@@ -85,8 +85,8 @@ class AnimalModel extends Model<AnimalModelProps, AnimalModelOptional> {
                 }
             }, {
                 sequelize: sequelize,
-                modelName: "Animals",
-                tableName: "Animals",
+                modelName: "animals",
+                tableName: "animals",
                 freezeTableName: true,
                 timestamps: true,
             }

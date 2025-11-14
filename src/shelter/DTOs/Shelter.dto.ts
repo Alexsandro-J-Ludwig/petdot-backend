@@ -4,16 +4,16 @@ class ShelterDTO {
   constructor(
     public readonly name: string,
     public readonly cnpj: string,
+    public readonly description: string | undefined,
     public readonly uuid_address: string,
     public readonly phonenumber: string,
     public readonly email: string,
     public readonly uuid_user: string,
-    public readonly description: string
   ) {
     ShelterValidation.validatorAll(this);
   };
 
-  static fromRequest(body: any): ShelterDTO {
+  static fromRequest(user: any, body: any): ShelterDTO {
     return new ShelterDTO(
       body.name,
       body.cnpj,
@@ -21,7 +21,7 @@ class ShelterDTO {
       body.uuid_address,
       body.phonenumber,
       body.email,
-      body.uuid_user
+      user
     );
   };
 };

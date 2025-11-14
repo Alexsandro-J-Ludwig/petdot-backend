@@ -5,7 +5,7 @@
   "main": "server.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch src/server.ts --respawn",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
