@@ -1,4 +1,4 @@
-import { Autentificate } from "../../middleware/autentificate.ts";
+import { Autentificate } from "../../middleware/Autentificate.ts";
 import { AnimalController } from "../controller/Animal.controller.ts";
 
 import { Router } from "express";
