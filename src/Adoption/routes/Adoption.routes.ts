@@ -13,32 +13,32 @@ router: Router;
 
   private routes() {
     this.router.post(
-      "/adoptions",
+      "/create",
       Autentificate.validateToken,
       AdoptionController.create,
     );
     this.router.get(
-      "/adoptions/:uuid",
+      "/getById/:uuid",
       Autentificate.validateToken,
       AdoptionController.getByUuid,
     );
     this.router.get(
-      "/adoptions",
+      "/getAll",
       Autentificate.validateToken,
       AdoptionController.getAll,
     );
     this.router.get(
-      "/adoptions/:uuid_user",
+      "/getByUser",
       Autentificate.validateToken,
       AdoptionController.getByUserUuid,
     );
     this.router.get(
-      "/adoptions/:uuid_animal",
+      "/getByAnimal/:uuid_animal",
       Autentificate.validateToken,
       AdoptionController.getByAnimalUuid,
     );
     this.router.delete(
-      "/adoptions/:uuid",
+      "/deletar/:uuid",
       Autentificate.validateToken,
       Autentificate.validateAdminAcess,
       AdoptionController.deleteByUuid,
