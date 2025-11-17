@@ -1,5 +1,5 @@
-import { UserController } from "../controlls/User.controller";
-import { Autentificate } from "../../middleware/Autentificate";
+import { UserController } from "../controlls/User.controller.js";
+import { Autentificate } from "../../middleware/Autentificate.js";
 
 import { Router } from "express";
 

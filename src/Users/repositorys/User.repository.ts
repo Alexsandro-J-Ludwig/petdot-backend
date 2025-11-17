@@ -1,4 +1,4 @@
-import { UserModel } from "../models/User.model";
+import { UserModel } from "../models/User.model.js";
 
 class UserRepository {
   static async createUser(data: any): Promise<UserModel> {

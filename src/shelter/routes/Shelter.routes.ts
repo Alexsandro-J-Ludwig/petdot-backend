@@ -1,5 +1,5 @@
-import { Autentificate } from "../../middleware/Autentificate";
-import { ShelterController } from "../controller/Shelter.controller";
+import { Autentificate } from "../../middleware/Autentificate.js";
+import { ShelterController } from "../controller/Shelter.controller.js";
 
 import { Router } from "express";
 

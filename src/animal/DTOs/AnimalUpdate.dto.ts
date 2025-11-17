@@ -1,4 +1,4 @@
-import { AnimalValidation } from "./AnimalValidation";
+import { AnimalValidation } from "./AnimalValidation.js";
 
 class AnimalUpdateDTO {
   constructor(

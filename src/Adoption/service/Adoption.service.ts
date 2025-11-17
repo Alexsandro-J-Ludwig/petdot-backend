@@ -1,8 +1,8 @@
-import { AppError } from "../../erros/App.errors";
-import { Logger } from "../../utils/Logger";
-import type { AdoptionDTO } from "../DTOs/Adoption.dto";
-import { AdoptionResponseDTO } from "../DTOs/AdoptionResponse";
-import { AdoptionRepository } from "../repository/Adoption.repository";
+import { AppError } from "../../erros/App.errors.js";
+import { Logger } from "../../utils/Logger.js";
+import type { AdoptionDTO } from "../DTOs/Adoption.dto.js";
+import { AdoptionResponseDTO } from "../DTOs/AdoptionResponse.js";
+import { AdoptionRepository } from "../repository/Adoption.repository.js";
 
 class AdoptionService {
   static async createAdoption(dto: AdoptionDTO): Promise<AdoptionResponseDTO> {

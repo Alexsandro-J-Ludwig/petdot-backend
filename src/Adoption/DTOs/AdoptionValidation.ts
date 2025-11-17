@@ -1,5 +1,5 @@
 import validator from "validator";
-import { AppError } from "../../erros/App.errors";
+import { AppError } from "../../erros/App.errors.js";
 const { isEmpty, isUUID } = validator;
 
 class AdoptionValidation {

@@ -1,11 +1,11 @@
 import { S3, PutObjectCommand } from "@aws-sdk/client-s3";
-import { AppError } from "../../erros/App.errors";
-import { AnimalDTO } from "../DTOs/Animal.dto";
-import { AnimalResponseDTO } from "../DTOs/AnimalResponse.dto";
-import { AnimalUpdateDTO } from "../DTOs/AnimalUpdate.dto";
-import { AnimalRepository } from "../repository/Animal.repository";
+import { AppError } from "../../erros/App.errors.js";
+import { AnimalDTO } from "../DTOs/Animal.dto.js";
+import { AnimalResponseDTO } from "../DTOs/AnimalResponse.dto.js";
+import { AnimalUpdateDTO } from "../DTOs/AnimalUpdate.dto.js";
+import { AnimalRepository } from "../repository/Animal.repository.js";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import type { AnimalUploadDTO } from "../DTOs/AnimalUpload.dto";
+import type { AnimalUploadDTO } from "../DTOs/AnimalUpload.dto.js";
 
 class AnimalService {
   static async create(dto: AnimalDTO): Promise<AnimalResponseDTO> {

@@ -1,5 +1,5 @@
 import validator from "validator";
-import { AppError } from "../../erros/App.errors";
+import { AppError } from "../../erros/App.errors.js";
 const { isEmail, isUUID, isEmpty } = validator;
 
 class ShelterValidation {

@@ -1,5 +1,5 @@
-import { Autentificate } from "../../middleware/Autentificate";
-import { AdoptionController } from "../controller/Adoption.controller";
+import { Autentificate } from "../../middleware/Autentificate.js";
+import { AdoptionController } from "../controller/Adoption.controller.js";
 
 import { Router } from "express";
 

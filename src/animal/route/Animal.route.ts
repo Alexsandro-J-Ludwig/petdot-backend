@@ -1,5 +1,5 @@
-import { Autentificate } from "../../middleware/Autentificate";
-import { AnimalController } from "../controller/Animal.controller";
+import { Autentificate } from "../../middleware/Autentificate.js";
+import { AnimalController } from "../controller/Animal.controller.js";
 
 import { Router } from "express";
 

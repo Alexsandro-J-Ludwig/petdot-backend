@@ -1,5 +1,5 @@
 import valdiator from "validator";
-import { AppError } from "../../erros/App.errors";
+import { AppError } from "../../erros/App.errors.js";
 const { isEmpty, isDate, isUUID } = valdiator;
 
 class AnimalValidation {

@@ -1,15 +1,15 @@
-import { AppError } from "../../erros/App.errors";
-import { UserRepository } from "../repositorys/User.repository";
-import { UserDTO } from "../DTOs/User.dto";
-import { UserResponseDTO } from "../DTOs/UserResponse.dto";
-import { UserLoginDTO } from "../DTOs/UserLogin.dto";
-import { UserUpdateDTO } from "../DTOs/UserUpdate.dto";
+import { AppError } from "../../erros/App.errors.js";
+import { UserRepository } from "../repositorys/User.repository.js";
+import { UserDTO } from "../DTOs/User.dto.js";
+import { UserResponseDTO } from "../DTOs/UserResponse.dto.js";
+import { UserLoginDTO } from "../DTOs/UserLogin.dto.js";
+import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { S3, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { UserUploadDTO } from "../DTOs/UserUpload.dto";
-import { Logger } from "../../utils/Logger";
+import { UserUploadDTO } from "../DTOs/UserUpload.dto.js";
+import { Logger } from "../../utils/Logger.js";
 
 class UserService {
   static async createUser(dto: UserDTO) {

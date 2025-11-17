@@ -1,5 +1,5 @@
-import { Autentificate } from "../../middleware/Autentificate";
-import { AddressController } from "../controller/Address.controller";
+import { Autentificate } from "../../middleware/Autentificate.js";
+import { AddressController } from "../controller/Address.controller.js";
 import { Router } from "express";
 
 class AddressRotue{

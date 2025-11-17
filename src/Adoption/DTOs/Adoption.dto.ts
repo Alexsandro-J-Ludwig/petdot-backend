@@ -1,4 +1,4 @@
-import { AdoptionValidation } from "./AdoptionValidation";
+import { AdoptionValidation } from "./AdoptionValidation.js";
 
 class AdoptionDTO {
     constructor(

@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { AppError } from "../erros/App.errors";
+import { AppError } from "../erros/App.errors.js";
 
 class ErrorHandle {
   static errorHandle(

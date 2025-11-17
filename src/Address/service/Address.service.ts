@@ -1,8 +1,8 @@
-import { AppError } from "../../erros/App.errors";
-import type { AddressDTO } from "../DTOs/Address.dto";
-import { AddressResponseDTO } from "../DTOs/AddressResponse.dto";
-import type { AddressUpdateDTO } from "../DTOs/AddressUpdate.dto";
-import { AddressRepository } from "../repository/Address.repository";
+import { AppError } from "../../erros/App.errors.js";
+import type { AddressDTO } from "../DTOs/Address.dto.js";
+import { AddressResponseDTO } from "../DTOs/AddressResponse.dto.js";
+import type { AddressUpdateDTO } from "../DTOs/AddressUpdate.dto.js";
+import { AddressRepository } from "../repository/Address.repository.js";
 
 class AddressService {
   static async createAddress(dto: AddressDTO) {

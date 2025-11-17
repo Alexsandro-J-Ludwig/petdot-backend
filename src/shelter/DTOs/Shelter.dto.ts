@@ -1,4 +1,4 @@
-import { ShelterValidation } from "./ShelterValidation";
+import { ShelterValidation } from "./ShelterValidation.js";
 
 class ShelterDTO {
   constructor(

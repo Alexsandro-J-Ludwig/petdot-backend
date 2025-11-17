@@ -1,4 +1,4 @@
-import { AddressValidator } from "./AddressValdiator";
+import { AddressValidator } from "./AddressValdiator.js";
 
 class AddressDTO {
   constructor(

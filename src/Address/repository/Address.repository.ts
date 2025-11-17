@@ -1,4 +1,4 @@
-import { AddressModel } from "../model/Address.model";
+import { AddressModel } from "../model/Address.model.js";
 
 class AddressRepository {
   static async createAddress(data: any): Promise<AddressModel> {

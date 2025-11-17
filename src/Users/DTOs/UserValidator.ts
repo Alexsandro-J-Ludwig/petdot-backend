@@ -1,7 +1,7 @@
 import validator from "validator";
 const { isEmpty, isEmail, isUUID } = validator;
 
-import { AppError } from "../../erros/App.errors";
+import { AppError } from "../../erros/App.errors.js";
 
 class UserValidator {
   static validateName(name: string) {

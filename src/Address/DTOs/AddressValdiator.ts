@@ -1,6 +1,6 @@
 import validator from "validator";
 const { isEmpty, isUUID } = validator;
-import { AppError } from "../../erros/App.errors";
+import { AppError } from "../../erros/App.errors.js";
 
 class AddressValidator {
   static validatorAddress(address: string) {

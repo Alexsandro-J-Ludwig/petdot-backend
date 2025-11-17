@@ -1,4 +1,4 @@
-import { UserValidator } from "./UserValidator";
+import { UserValidator } from "./UserValidator.js";
 
 class UserResponseDTO {
     constructor(

@@ -1,8 +1,8 @@
-import { AppError } from "../../erros/App.errors";
-import type { ShelterDTO } from "../DTOs/Shelter.dto";
-import { ShelterResponseDTO } from "../DTOs/ShelterResponse.dto";
-import type { ShelterUpdateDTO } from "../DTOs/ShelterUpdate.dto";
-import { ShelterRepository } from "../repository/Shelter.repository";
+import { AppError } from "../../erros/App.errors.js";
+import type { ShelterDTO } from "../DTOs/Shelter.dto.js";
+import { ShelterResponseDTO } from "../DTOs/ShelterResponse.dto.js";
+import type { ShelterUpdateDTO } from "../DTOs/ShelterUpdate.dto.js";
+import { ShelterRepository } from "../repository/Shelter.repository.js";
 
 class ShelterService {
   static async createShelter(dto: ShelterDTO) {
