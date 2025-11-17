@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { AnimalDTO } from "../DTOs/Animal.dto.ts";
-import { AnimalService } from "../service/Animal.service.ts";
-import { asyncHandler } from "../../utils/AsyncHandler.ts";
-import { AnimalUpdateDTO } from "../DTOs/AnimalUpdate.dto.ts";
-import { AnimalUploadDTO } from "../DTOs/AnimalUpload.dto.ts";
+import { AnimalDTO } from "../DTOs/Animal.dto";
+import { AnimalService } from "../service/Animal.service";
+import { asyncHandler } from "../../utils/AsyncHandler";
+import { AnimalUpdateDTO } from "../DTOs/AnimalUpdate.dto";
+import { AnimalUploadDTO } from "../DTOs/AnimalUpload.dto";
 
 class AnimalController {
     static create = asyncHandler(async(req: Request, res: Response) => {

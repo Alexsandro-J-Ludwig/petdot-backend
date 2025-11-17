@@ -1,10 +1,8 @@
-import { AppError } from "../../erros/App.errors.ts";
-import { UserService } from "../../Users/services/User.service.ts";
-import { Logger } from "../../utils/Logger.ts";
-import type { ShelterDTO } from "../DTOs/Shelter.dto.ts";
-import { ShelterResponseDTO } from "../DTOs/ShelterResponse.dto.ts";
-import type { ShelterUpdateDTO } from "../DTOs/ShelterUpdate.dto.ts";
-import { ShelterRepository } from "../repository/Shelter.repository.ts";
+import { AppError } from "../../erros/App.errors";
+import type { ShelterDTO } from "../DTOs/Shelter.dto";
+import { ShelterResponseDTO } from "../DTOs/ShelterResponse.dto";
+import type { ShelterUpdateDTO } from "../DTOs/ShelterUpdate.dto";
+import { ShelterRepository } from "../repository/Shelter.repository";
 
 class ShelterService {
   static async createShelter(dto: ShelterDTO) {

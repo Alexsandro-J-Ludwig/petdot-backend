@@ -1,4 +1,4 @@
-import { AdoptionModel } from "../model/Adoption.model.ts";
+import { AdoptionModel } from "../model/Adoption.model";
 
 class AdoptionRepository {
     static async create(data: any): Promise<AdoptionModel> {

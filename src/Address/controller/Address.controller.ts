@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { AddressService } from "../service/Address.service.ts";
-import { AddressDTO } from "../DTOs/Address.dto.ts";
-import { asyncHandler } from "../../utils/AsyncHandler.ts";
-import type { AddressResponseDTO } from "../DTOs/AddressResponse.dto.ts";
-import { AddressUpdateDTO } from "../DTOs/AddressUpdate.dto.ts";
+import { AddressService } from "../service/Address.service";
+import { AddressDTO } from "../DTOs/Address.dto";
+import { asyncHandler } from "../../utils/AsyncHandler";
+import type { AddressResponseDTO } from "../DTOs/AddressResponse.dto";
+import { AddressUpdateDTO } from "../DTOs/AddressUpdate.dto";
 
 class AddressController {
   static createAddress = asyncHandler(async (req: Request, res: Response) => {

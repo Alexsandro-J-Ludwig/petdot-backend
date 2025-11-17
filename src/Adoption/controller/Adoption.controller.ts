@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../../utils/AsyncHandler.ts";
-import { AdoptionService } from "../service/Adoption.service.ts";
-import { AdoptionDTO } from "../DTOs/Adoption.dto.ts";
+import { asyncHandler } from "../../utils/AsyncHandler";
+import { AdoptionService } from "../service/Adoption.service";
+import { AdoptionDTO } from "../DTOs/Adoption.dto";
 
 class AdoptionController{
     static create = asyncHandler(async (req: Request, res: Response) => {

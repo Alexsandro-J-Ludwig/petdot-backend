@@ -1,4 +1,4 @@
-import { ShelterValidation } from "./ShelterValidation.ts";
+import { ShelterValidation } from "./ShelterValidation";
 
 class ShelterDTO {
   constructor(

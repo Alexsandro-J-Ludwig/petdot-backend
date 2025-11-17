@@ -1,9 +1,9 @@
-import { ShelterService } from "../service/Shelter.service.ts";
+import { ShelterService } from "../service/Shelter.service";
 
-import { ShelterDTO } from "../DTOs/Shelter.dto.ts";
-import { ShelterResponseDTO } from "../DTOs/ShelterResponse.dto.ts";
-import { ShelterUpdateDTO } from "../DTOs/ShelterUpdate.dto.ts";
-import { asyncHandler } from "../../utils/AsyncHandler.ts";
+import { ShelterDTO } from "../DTOs/Shelter.dto";
+import { ShelterResponseDTO } from "../DTOs/ShelterResponse.dto";
+import { ShelterUpdateDTO } from "../DTOs/ShelterUpdate.dto";
+import { asyncHandler } from "../../utils/AsyncHandler";
 import type { Request, Response } from "express";
 
 class ShelterController {

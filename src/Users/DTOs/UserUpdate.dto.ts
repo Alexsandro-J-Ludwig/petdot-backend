@@ -1,8 +1,8 @@
 import validator from "validator";
 const {isEmpty} = validator;
 
-import { UserValidator } from "./UserValidator.ts";
-import { AppError } from "../../erros/App.errors.ts";
+import { UserValidator } from "./UserValidator";
+import { AppError } from "../../erros/App.errors";
 
 class UserUpdateDTO {
   constructor(

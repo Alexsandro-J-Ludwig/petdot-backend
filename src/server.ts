@@ -1,15 +1,15 @@
 import "dotenv/config";
 
-import { Connection } from "./config/db.config.js";
+import { Connection } from "./config/db.config";
 import e, { type Application } from "express";
-import { ErrorHandle } from "./middleware/ErrorHandle.ts";
-import { Logger } from "./utils/Logger.ts";
+import { ErrorHandle } from "./middleware/ErrorHandle";
+import { Logger } from "./utils/Logger";
 
-import { UserRoutes } from "./Users/routes/User.rotes.ts";
-import { AddressRotue } from "./Address/routes/AddressRoutes.ts";
-import { ShelterRoutes } from "./shelter/routes/Shelter.routes.ts";
-import { AnimalRoutes } from "./animal/route/Animal.route.ts";
-import { AdoptionRoutes } from "./Adoption/routes/Adoption.routes.ts";
+import { UserRoutes } from "./Users/routes/User.rotes";
+import { AddressRotue } from "./Address/routes/AddressRoutes";
+import { ShelterRoutes } from "./shelter/routes/Shelter.routes";
+import { AnimalRoutes } from "./animal/route/Animal.route";
+import { AdoptionRoutes } from "./Adoption/routes/Adoption.routes";
 
 class Server {
   private connection: Connection;

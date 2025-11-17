@@ -1,4 +1,4 @@
-import { AnimalValidation } from "./AnimalValidation.ts";
+import { AnimalValidation } from "./AnimalValidation";
 
 class AnimalUpdateDTO {
   constructor(

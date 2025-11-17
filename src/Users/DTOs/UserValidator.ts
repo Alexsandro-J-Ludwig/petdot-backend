@@ -1,8 +1,7 @@
-import jwt from "jsonwebtoken";
 import validator from "validator";
-const { isEmpty, isEmail, isUUID, isJWT } = validator;
+const { isEmpty, isEmail, isUUID } = validator;
 
-import { AppError } from "../../erros/App.errors.ts";
+import { AppError } from "../../erros/App.errors";
 
 class UserValidator {
   static validateName(name: string) {

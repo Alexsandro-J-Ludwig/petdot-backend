@@ -1,4 +1,4 @@
-import { UserValidator } from "./UserValidator.ts";
+import { UserValidator } from "./UserValidator";
 
 class UserUploadDTO {
   constructor(

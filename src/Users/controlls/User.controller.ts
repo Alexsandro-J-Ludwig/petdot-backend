@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
-import { UserDTO } from "../DTOs/User.dto.ts";
-import { asyncHandler } from "../../utils/AsyncHandler.ts";
-import { UserService } from "../services/User.service.ts";
-import { UserLoginDTO } from "../DTOs/UserLogin.dto.ts";
-import { UserUpdateDTO } from "../DTOs/UserUpdate.dto.ts";
-import { UserUploadDTO } from "../DTOs/UserUpload.dto.ts";
+import { UserDTO } from "../DTOs/User.dto";
+import { asyncHandler } from "../../utils/AsyncHandler";
+import { UserService } from "../services/User.service";
+import { UserLoginDTO } from "../DTOs/UserLogin.dto";
+import { UserUpdateDTO } from "../DTOs/UserUpdate.dto";
+import { UserUploadDTO } from "../DTOs/UserUpload.dto";
 
 class UserController {
   static createUser = asyncHandler(async (req: Request, res: Response) => {

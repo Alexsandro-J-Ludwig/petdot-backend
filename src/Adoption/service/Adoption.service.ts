@@ -1,9 +1,8 @@
-import { AppError } from "../../erros/App.errors.ts";
-import { Logger } from "../../utils/Logger.ts";
-import type { AdoptionDTO } from "../DTOs/Adoption.dto.ts";
-import { AdoptionResponseDTO } from "../DTOs/AdoptionResponse.ts";
-import { AdoptionModel } from "../model/Adoption.model.ts";
-import { AdoptionRepository } from "../repository/Adoption.repository.ts";
+import { AppError } from "../../erros/App.errors";
+import { Logger } from "../../utils/Logger";
+import type { AdoptionDTO } from "../DTOs/Adoption.dto";
+import { AdoptionResponseDTO } from "../DTOs/AdoptionResponse";
+import { AdoptionRepository } from "../repository/Adoption.repository";
 
 class AdoptionService {
   static async createAdoption(dto: AdoptionDTO): Promise<AdoptionResponseDTO> {

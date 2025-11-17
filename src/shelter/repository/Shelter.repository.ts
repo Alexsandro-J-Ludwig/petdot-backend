@@ -1,4 +1,4 @@
-import { ShelterModel } from "../model/Shelter.model.ts";
+import { ShelterModel } from "../model/Shelter.model";
 
 class ShelterRepository {
   static async createShelter(data: any): Promise<ShelterModel> {

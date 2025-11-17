@@ -1,4 +1,4 @@
-import { AdoptionValidation } from "./AdoptionValidation.ts";
+import { AdoptionValidation } from "./AdoptionValidation";
 
 class AdoptionDTO {
     constructor(

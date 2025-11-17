@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { AppError } from "../erros/App.errors.ts";
+import { AppError } from "../erros/App.errors";
 
 class ErrorHandle {
   static errorHandle(

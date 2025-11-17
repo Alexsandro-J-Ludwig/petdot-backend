@@ -1,5 +1,5 @@
-import { Autentificate } from "../../middleware/Autentificate.ts";
-import { ShelterController } from "../controller/Shelter.controller.ts";
+import { Autentificate } from "../../middleware/Autentificate";
+import { ShelterController } from "../controller/Shelter.controller";
 
 import { Router } from "express";
 

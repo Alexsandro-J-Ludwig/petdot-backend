@@ -1,4 +1,4 @@
-import { AddressValidator } from "./AddressValdiator.ts";
+import { AddressValidator } from "./AddressValdiator";
 
 class AddressDTO {
   constructor(

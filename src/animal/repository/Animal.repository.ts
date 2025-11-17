@@ -1,4 +1,4 @@
-import { AnimalModel } from "../model/Animal.model.ts";
+import { AnimalModel } from "../model/Animal.model";
 
 class AnimalRepository {
   static async createAnimal(data: any): Promise<AnimalModel> {

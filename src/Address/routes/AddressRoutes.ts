@@ -1,5 +1,5 @@
-import { Autentificate } from "../../middleware/Autentificate.ts";
-import { AddressController } from "../controller/Address.controller.ts";
+import { Autentificate } from "../../middleware/Autentificate";
+import { AddressController } from "../controller/Address.controller";
 import { Router } from "express";
 
 class AddressRotue{

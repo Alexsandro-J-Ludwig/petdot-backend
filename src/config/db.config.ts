@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize";
-import { Logger } from "../utils/Logger.ts";
-import { UserModel } from "../Users/models/User.model.ts";
-import { AddressModel } from "../Address/model/Address.model.ts";
-import { ShelterModel } from "../shelter/model/Shelter.model.ts";
-import { AnimalModel } from "../animal/model/Animal.model.ts";
-import { AdoptionModel } from "../Adoption/model/Adoption.model.ts";
+import { Logger } from "../utils/Logger";
+import { UserModel } from "../Users/models/User.model";
+import { AddressModel } from "../Address/model/Address.model";
+import { ShelterModel } from "../shelter/model/Shelter.model";
+import { AnimalModel } from "../animal/model/Animal.model";
+import { AdoptionModel } from "../Adoption/model/Adoption.model";
 
 class Connection {
   public static instance: Connection;

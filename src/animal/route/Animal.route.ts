@@ -1,5 +1,5 @@
-import { Autentificate } from "../../middleware/Autentificate.ts";
-import { AnimalController } from "../controller/Animal.controller.ts";
+import { Autentificate } from "../../middleware/Autentificate";
+import { AnimalController } from "../controller/Animal.controller";
 
 import { Router } from "express";
 
