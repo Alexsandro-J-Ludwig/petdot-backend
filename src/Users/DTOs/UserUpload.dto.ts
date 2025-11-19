@@ -5,16 +5,15 @@ class UserUploadDTO {
   constructor(
     public readonly uuid: string,
     public readonly filename: string,
-    public readonly contentType: string
+    public readonly contentType: string | string[]
   ) {
     UserValidator.validateName(filename);
-    UserValidator.validateName(contentType);
     UserValidator.validateUUID(uuid);
   }
 
-  static fromRequest(uuid: string, body: Request, headers: Request): UserUploadDTO {
+  static fromRequest(uuid: string, body: Request, headers: string | string[]): UserUploadDTO {
     const filename = body.body.filename;
-    const contentType = headers.headers["content-type"] as string;
+    const contentType = headers
     return new UserUploadDTO(uuid, filename, contentType);
   }
 }

@@ -12,7 +12,7 @@ class UserController {
     const response = await UserService.createUser(dto);
 
     res
-      .cookie("Access_token", `Bearer ${response.token}`, {
+      .cookie("Access_token", response.token, {
         httpOnly: true,
         secure: true,
         maxAge: 96000000,
@@ -23,10 +23,11 @@ class UserController {
   });
 
   static getURL = asyncHandler(async (req: Request, res: Response) => {
+    const {contentType} = req.headers;
     const dto = UserUploadDTO.fromRequest(
       (req as any).user.uuid,
       req.body,
-      req
+      contentType!
     );
     const response = await UserService.getURL(dto);
 
@@ -44,7 +45,7 @@ class UserController {
     const dto = UserLoginDTO.fromRequest(req.body);
     const response = await UserService.getUser(dto);
     res
-      .cookie("Access_token", `Bearer ${response.token}`, {
+      .cookie("Access_token", response.token, {
         httpOnly: true,
         secure: true,
         maxAge: 96000000,
