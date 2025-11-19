@@ -25,9 +25,6 @@ class AnimalService {
     if (!dto.vaccines)
       throw AppError.badRequest("Vaccines information is required");
 
-    if (!dto.imageURL === null || dto.imageURL.length === 0)
-      throw AppError.badRequest("At least one image URL is required");
-
     const response = await AnimalRepository.createAnimal(dto);
 
     return AnimalResponseDTO.fromResponse({

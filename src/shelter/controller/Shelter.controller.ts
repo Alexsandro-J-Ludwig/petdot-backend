@@ -40,7 +40,7 @@ class ShelterController {
   });
 
   static updateShelter = asyncHandler(async (req: Request, res: Response) => {
-    const dto: ShelterUpdateDTO = ShelterUpdateDTO.fromRequest(req.params, req.body);
+    const dto: ShelterUpdateDTO = ShelterUpdateDTO.fromRequest(req, req.body);
     const response: ShelterResponseDTO = await ShelterService.updateShelter(
       dto
     );
