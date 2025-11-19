@@ -1,6 +1,16 @@
 import { Request } from "express";
 import { ShelterValidation } from "./ShelterValidation.js";
 
+interface ShelterBody {
+  name: string | undefined;
+  cnpj: string | undefined;
+  description: string | undefined;
+  uuid_address: string | undefined;
+  phonenumber: string | undefined;
+  email: string | undefined;
+  uuid_user: string | undefined;
+};
+
 class ShelterUpdateDTO {
   constructor(
     public readonly uuid: string,
@@ -25,16 +35,16 @@ class ShelterUpdateDTO {
       ShelterValidation.validatorUuid_user(uuid_user);
   };
 
-  static fromRequest(params: Request, body: Request) {
+  static fromRequest(params: Request, body: ShelterBody) {
     return new ShelterUpdateDTO(
-      params.body.id,
-      body.body.name || undefined,
-      body.body.cnpj || undefined,
-      body.body.description || undefined,
-      body.body.uuid_address || undefined,
-      body.body.phonenumber || undefined,
-      body.body.email || undefined,
-      body.body.uuid_user || undefined
+      params.params.id!,
+      body.name || undefined,
+      body.cnpj || undefined,
+      body.description || undefined,
+      body.uuid_address || undefined,
+      body.phonenumber || undefined,
+      body.email || undefined,
+      body.uuid_user || undefined
     );
   };
 };

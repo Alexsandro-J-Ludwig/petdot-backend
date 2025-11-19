@@ -1,5 +1,11 @@
-import { Request } from "express";
 import { UserValidator } from "./UserValidator.js";
+
+interface UserBody {
+  name: string;
+  email: string;
+  pass: string;
+  celular: string;
+}
 
 class UserDTO {
   constructor(
@@ -11,12 +17,12 @@ class UserDTO {
     UserValidator.validateAll(this);
   }
 
-  static fromRequest(body: Request): UserDTO {
+  static fromRequest(body: UserBody): UserDTO {
     return new UserDTO(
-      body.body.name,
-      body.body.email,
-      body.body.pass,
-      body.body.celular
+      body.name,
+      body.email,
+      body.pass,
+      body.celular
     );
   }
 }

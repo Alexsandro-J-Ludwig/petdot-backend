@@ -1,6 +1,17 @@
 import { Request } from "express";
 import { AnimalValidation } from "./AnimalValidation.js";
 
+interface AnimalBody {
+  name: string;
+  redemption_date: Date;
+  species: string;
+  race: string;
+  gender: string;
+  vaccines: string;
+  uuid_shelter: string;
+  description?: string;
+}
+
 class AnimalDTO {
   constructor(
     public readonly name: string,
@@ -10,23 +21,21 @@ class AnimalDTO {
     public readonly gender: string,
     public readonly vaccines: string,
     public readonly uuid_shelter: string,
-    public readonly description?: string,
+    public readonly description?: string
   ) {
     AnimalValidation.valdiatorAll(this);
   }
 
-  static fronRequest(body: Request): AnimalDTO {
-    console.log(body);
-    
+  static fronRequest(body: AnimalBody): AnimalDTO {
     return new AnimalDTO(
-      body.body.name,
-      body.body.redemption_date,
-      body.body.species,
-      body.body.race,
-      body.body.gender,
-      body.body.vaccines,
-      body.body.uuid_shelter,
-      body.body.description,
+      body.name,
+      body.redemption_date,
+      body.species,
+      body.race,
+      body.gender,
+      body.vaccines,
+      body.uuid_shelter,
+      body.description
     );
   }
 }

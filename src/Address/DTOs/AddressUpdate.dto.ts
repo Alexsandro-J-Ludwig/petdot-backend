@@ -1,5 +1,14 @@
-import { Request } from "express";
 import { AddressValidator } from "./AddressValdiator.js";
+
+interface AddressBody {
+  address: string | undefined;
+  number: string | undefined;
+  complement: string | undefined;
+  neighborhood: string | undefined;
+  city: string | undefined;
+  state: string | undefined;
+  cep: string | undefined;
+}
 
 class AddressUpdateDTO {
   constructor(
@@ -23,18 +32,16 @@ class AddressUpdateDTO {
     if (cep !== undefined) AddressValidator.validatorCep(cep);
   }
 
-  static fromRequest(user: any, body: Request): AddressUpdateDTO {
-    console.log(user, body);
-    
+  static fromRequest(user: string, body: AddressBody): AddressUpdateDTO {
     return new AddressUpdateDTO(
       user,
-      body.body.bo.address,
-      body.body.number,
-      body.body.complement,
-      body.body.neighborhood,
-      body.body.city,
-      body.body.state,
-      body.body.cep
+      body.address || undefined,
+      body.number || undefined,
+      body.complement || undefined,
+      body.neighborhood || undefined,
+      body.city || undefined,
+      body.state || undefined,
+      body.cep || undefined
     );
   }
 }

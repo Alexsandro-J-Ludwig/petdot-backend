@@ -5,6 +5,15 @@ import { UserValidator } from "./UserValidator.js";
 import { AppError } from "../../erros/App.errors.js";
 import { Request } from "express";
 
+interface UserBody {
+  name: string | undefined;
+  email: string | undefined;
+  pass: string | undefined;
+  celular: string | undefined;
+  nivel_acesso: string | undefined;
+  imagemURL: string | undefined;
+}
+
 class UserUpdateDTO {
   constructor(
     public readonly uuid: string,
@@ -12,7 +21,8 @@ class UserUpdateDTO {
     public readonly email?: string,
     public readonly pass?: string,
     public readonly celular?: string,
-    public readonly nivel_acesso?: string
+    public readonly nivel_acesso?: string,
+    public readonly imagemURL?: string
   ) {
     if (this.name !== undefined) UserValidator.validateName(this.name);
     if (this.email !== undefined) UserValidator.validateEmail(this.email);
@@ -21,14 +31,15 @@ class UserUpdateDTO {
       throw AppError.badRequest("Celular não pode ser vazio");
   }
 
-  static fromRequest(user: string, body: Request) {
+  static fromRequest(user: string, body: UserBody) {
     return new UserUpdateDTO(
       user,
-      body.body.name,
-      body.body.email,
-      body.body.pass,
-      body.body.celular,
-      body.body.nivel_acesso
+      body.name,
+      body.email,
+      body.pass,
+      body.celular,
+      body.nivel_acesso,
+      body.imagemURL
     );
   }
 }

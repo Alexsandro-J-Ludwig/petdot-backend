@@ -1,5 +1,9 @@
-import { Request } from "express";
 import { UserValidator } from "./UserValidator.js";
+
+interface UserBody {
+    email: string;
+    pass: string;
+}
 
 class UserLoginDTO {
     constructor(
@@ -10,8 +14,8 @@ class UserLoginDTO {
         UserValidator.validatePass(this.pass);
     }
 
-    static fromRequest(body: Request): UserLoginDTO {
-        return new UserLoginDTO(body.body.email, body.body.pass);
+    static fromRequest(body: UserBody): UserLoginDTO {
+        return new UserLoginDTO(body.email, body.pass);
     }
 }
 

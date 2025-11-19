@@ -1,16 +1,27 @@
 import { Request } from "express";
 import { AnimalValidation } from "./AnimalValidation.js";
 
+interface AnimalBody {
+  name?: string | undefined;
+  redemption_date?: Date | undefined;
+  species?: string | undefined;
+  race?: string | undefined;
+  gender?: string | undefined;
+  vaccines?: string | undefined;
+  uuid_shelter?: string | undefined;
+  description?: string | undefined;
+}
+
 class AnimalUpdateDTO {
   constructor(
     public readonly uuid: string,
-    public readonly name: string,
-    public readonly redemption_date: Date,
-    public readonly species: string,
-    public readonly race: string,
-    public readonly gender: string,
-    public readonly vaccines: string,
-    public readonly uuid_shelter: string,
+    public readonly name?: string,
+    public readonly redemption_date?: Date,
+    public readonly species?: string,
+    public readonly race?: string,
+    public readonly gender?: string,
+    public readonly vaccines?: string,
+    public readonly uuid_shelter?: string,
     public readonly description?: string
   ) {
     if (name) AnimalValidation.valitorName(name);
@@ -23,17 +34,17 @@ class AnimalUpdateDTO {
     if (uuid_shelter) AnimalValidation.validatorUUID_shelter(uuid_shelter);
   }
 
-  static fromRequest(params: Request, body: Request): AnimalUpdateDTO {
+  static fromRequest(params: Request, body: AnimalBody): AnimalUpdateDTO {
     return new AnimalUpdateDTO(
-      params.params.uuid!,
-      body.body.name,
-      body.body.redemption_date,
-      body.body.species,
-      body.body.race,
-      body.body.gender,
-      body.body.vaccines,
-      body.body.uuid_shelter,
-      body.body.description
+      params.params.id!,
+      body.name || undefined,
+      body.redemption_date || undefined,
+      body.species || undefined,
+      body.race || undefined,
+      body.gender || undefined,
+      body.vaccines || undefined,
+      body.uuid_shelter || undefined,
+      body.description || undefined
     );
   }
 }

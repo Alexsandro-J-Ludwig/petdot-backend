@@ -1,5 +1,13 @@
-import { Request } from "express";
 import { ShelterValidation } from "./ShelterValidation.js";
+
+interface ShelterBody {
+  name: string;
+  cnpj: string;
+  description: string | undefined;
+  uuid_address: string;
+  phonenumber: string;
+  email: string;
+};
 
 class ShelterDTO {
   constructor(
@@ -14,14 +22,14 @@ class ShelterDTO {
     ShelterValidation.validatorAll(this);
   };
 
-  static fromRequest(user: any, body: Request): ShelterDTO {
+  static fromRequest(user: any, body: ShelterBody): ShelterDTO {
     return new ShelterDTO(
-      body.body.name,
-      body.body.cnpj,
-      body.body.description,
-      body.body.uuid_address,
-      body.body.phonenumber,
-      body.body.email,
+      body.name,
+      body.cnpj,
+      body.description,
+      body.uuid_address,
+      body.phonenumber,
+      body.email,
       user
     );
   };
