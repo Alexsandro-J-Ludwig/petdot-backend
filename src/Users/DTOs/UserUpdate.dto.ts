@@ -3,6 +3,7 @@ const {isEmpty} = validator;
 
 import { UserValidator } from "./UserValidator.js";
 import { AppError } from "../../erros/App.errors.js";
+import { Request } from "express";
 
 class UserUpdateDTO {
   constructor(
@@ -20,14 +21,14 @@ class UserUpdateDTO {
       throw AppError.badRequest("Celular não pode ser vazio");
   }
 
-  static fromRequest(data: { users: any; body: any }) {
+  static fromRequest(user: string, body: Request) {
     return new UserUpdateDTO(
-      data.users.uuid,
-      data.body.name,
-      data.body.email,
-      data.body.pass,
-      data.body.celular,
-      data.body.nivel_acesso
+      user,
+      body.body.name,
+      body.body.email,
+      body.body.pass,
+      body.body.celular,
+      body.body.nivel_acesso
     );
   }
 }

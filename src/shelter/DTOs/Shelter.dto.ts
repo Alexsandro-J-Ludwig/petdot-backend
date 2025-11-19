@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { ShelterValidation } from "./ShelterValidation.js";
 
 class ShelterDTO {
@@ -13,14 +14,14 @@ class ShelterDTO {
     ShelterValidation.validatorAll(this);
   };
 
-  static fromRequest(user: any, body: any): ShelterDTO {
+  static fromRequest(user: any, body: Request): ShelterDTO {
     return new ShelterDTO(
-      body.name,
-      body.cnpj,
-      body.description,
-      body.uuid_address,
-      body.phonenumber,
-      body.email,
+      body.body.name,
+      body.body.cnpj,
+      body.body.description,
+      body.body.uuid_address,
+      body.body.phonenumber,
+      body.body.email,
       user
     );
   };

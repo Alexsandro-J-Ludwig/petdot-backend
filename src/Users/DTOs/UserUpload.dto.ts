@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { UserValidator } from "./UserValidator.js";
 
 class UserUploadDTO {
@@ -11,9 +12,9 @@ class UserUploadDTO {
     UserValidator.validateUUID(uuid);
   }
 
-  static fromRequest(uuid: string, body: any, headers: any): UserUploadDTO {
-    const filename = body.filename;
-    const contentType = headers["content-type"];
+  static fromRequest(uuid: string, body: Request, headers: Request): UserUploadDTO {
+    const filename = body.body.filename;
+    const contentType = headers.headers["content-type"] as string;
     return new UserUploadDTO(uuid, filename, contentType);
   }
 }

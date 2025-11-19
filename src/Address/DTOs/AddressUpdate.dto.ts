@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { AddressValidator } from "./AddressValdiator.js";
 
 class AddressUpdateDTO {
@@ -22,18 +23,18 @@ class AddressUpdateDTO {
     if (cep !== undefined) AddressValidator.validatorCep(cep);
   }
 
-  static fromRequest(user: any, body: any): AddressUpdateDTO {
+  static fromRequest(user: any, body: Request): AddressUpdateDTO {
     console.log(user, body);
     
     return new AddressUpdateDTO(
       user,
-      body.address,
-      body.number,
-      body.complement,
-      body.neighborhood,
-      body.city,
-      body.state,
-      body.cep
+      body.body.bo.address,
+      body.body.number,
+      body.body.complement,
+      body.body.neighborhood,
+      body.body.city,
+      body.body.state,
+      body.body.cep
     );
   }
 }

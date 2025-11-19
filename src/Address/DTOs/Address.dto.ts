@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { AddressValidator } from "./AddressValdiator.js";
 
 class AddressDTO {
@@ -14,16 +15,16 @@ class AddressDTO {
     AddressValidator.validatorAll(this);
   }
 
-  static fromRequest(user: any, body: any): AddressDTO {
+  static fromRequest(user: any, body: Request): AddressDTO {
     
     return new AddressDTO(
-      body.address,
-      body.number,
-      body.complement,
-      body.neighborhood,
-      body.city,
-      body.state,
-      body.cep,
+      body.body.address,
+      body.body.number,
+      body.body.complement,
+      body.body.neighborhood,
+      body.body.city,
+      body.body.state,
+      body.body.cep,
       user
     );
   }

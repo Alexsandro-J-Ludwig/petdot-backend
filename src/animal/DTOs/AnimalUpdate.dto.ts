@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { AnimalValidation } from "./AnimalValidation.js";
 
 class AnimalUpdateDTO {
@@ -22,17 +23,17 @@ class AnimalUpdateDTO {
     if (uuid_shelter) AnimalValidation.validatorUUID_shelter(uuid_shelter);
   }
 
-  static fromRequest(params: any, body: any): AnimalUpdateDTO {
+  static fromRequest(params: Request, body: Request): AnimalUpdateDTO {
     return new AnimalUpdateDTO(
-      params,
-      body.name,
-      body.redemption_date,
-      body.species,
-      body.race,
-      body.gender,
-      body.vaccines,
-      body.uuid_shelter,
-      body.description
+      params.params.uuid!,
+      body.body.name,
+      body.body.redemption_date,
+      body.body.species,
+      body.body.race,
+      body.body.gender,
+      body.body.vaccines,
+      body.body.uuid_shelter,
+      body.body.description
     );
   }
 }

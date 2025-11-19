@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { AdoptionValidation } from "./AdoptionValidation.js";
 
 class AdoptionDTO {
@@ -10,12 +11,12 @@ class AdoptionDTO {
     AdoptionValidation.validatorAll(this);
   }
 
-  static fromRequest(user: any, body: any): AdoptionDTO {    
+  static fromRequest(user: any, body: Request): AdoptionDTO {    
     return new AdoptionDTO(
       user,
-      body.uuid_animal,
-      body.uuid_shelter,
-      body.adoption_date,
+      body.body.uuid_animal,
+      body.body.uuid_shelter,
+      body.body.adoption_date,
     );
   }
 }

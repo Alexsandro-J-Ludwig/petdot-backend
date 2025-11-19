@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { AnimalValidation } from "./AnimalValidation.js";
 
 class AnimalDTO {
@@ -10,24 +11,22 @@ class AnimalDTO {
     public readonly vaccines: string,
     public readonly uuid_shelter: string,
     public readonly description?: string,
-    public readonly imageURL: string[] = [],
   ) {
     AnimalValidation.valdiatorAll(this);
   }
 
-  static fronRequest(body: any): AnimalDTO {
+  static fronRequest(body: Request): AnimalDTO {
     console.log(body);
     
     return new AnimalDTO(
-      body.name,
-      body.redemption_date,
-      body.species,
-      body.race,
-      body.gender,
-      body.vaccines,
-      body.uuid_shelter,
-      body.description,
-      body.imageURL,
+      body.body.name,
+      body.body.redemption_date,
+      body.body.species,
+      body.body.race,
+      body.body.gender,
+      body.body.vaccines,
+      body.body.uuid_shelter,
+      body.body.description,
     );
   }
 }

@@ -26,7 +26,7 @@ class UserController {
     const dto = UserUploadDTO.fromRequest(
       (req as any).user.uuid,
       req.body,
-      req.headers
+      req
     );
     const response = await UserService.getURL(dto);
 
@@ -59,10 +59,10 @@ class UserController {
   })
 
   static updateUser = asyncHandler(async (req: Request, res: Response) => {
-    const dto = UserUpdateDTO.fromRequest({
-      users: (req as any).user,
-      body: req.body,
-    });
+    const dto = UserUpdateDTO.fromRequest(
+      (req as any).user,
+      req.body,
+    );
     const response = UserService.updateUser(dto);
     res.status(200).json({ sucess: true, data: response });
   });
