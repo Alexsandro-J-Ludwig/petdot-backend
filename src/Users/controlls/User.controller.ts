@@ -12,7 +12,7 @@ class UserController {
     const response = await UserService.createUser(dto);
 
     res
-      .cookie("Access_token", response.token, {
+      .cookie("Access_token", `Bearer ${response.token}`, {
         httpOnly: true,
         secure: true,
         maxAge: 96000000,
@@ -31,7 +31,7 @@ class UserController {
     const response = await UserService.getURL(dto);
 
     res
-      .cookie("Access_token", response.token, {
+      .cookie("Access_token", `Bearer ${response.token}`, {
         httpOnly: true,
         secure: true,
         maxAge: 96000000,
