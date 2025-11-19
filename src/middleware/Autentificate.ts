@@ -29,7 +29,7 @@ class Autentificate{
     }
 
     static getToken(req: Request){
-        const authHeader = req.headers.authorization;
+        const authHeader = req.cookies.Access_token;
         const token = authHeader && authHeader.split(" ")[1];
 
         if(!token) {

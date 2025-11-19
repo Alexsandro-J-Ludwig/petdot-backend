@@ -10,14 +10,34 @@ class UserController {
   static createUser = asyncHandler(async (req: Request, res: Response) => {
     const dto = UserDTO.fromRequest(req.body);
     const response = await UserService.createUser(dto);
-    res.status(201).json({ sucess: true, data: response });
+
+    res
+      .cookie("Access_token", response.token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 96000000,
+        sameSite: "strict",
+      })
+      .status(201)
+      .send("Usuario criado");
   });
 
   static getURL = asyncHandler(async (req: Request, res: Response) => {
-    const dto = UserUploadDTO.fromRequest((req as any).user.uuid, req.body, req.headers);
+    const dto = UserUploadDTO.fromRequest(
+      (req as any).user.uuid,
+      req.body,
+      req.headers
+    );
     const response = await UserService.getURL(dto);
 
-    res.status(200).json({ sucess: true, data: response });
+    res
+      .cookie("Access_token", response.token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 96000000,
+        sameSite: "strict",
+      })
+      .status(200);
   });
 
   static getUser = asyncHandler(async (req: Request, res: Response) => {
