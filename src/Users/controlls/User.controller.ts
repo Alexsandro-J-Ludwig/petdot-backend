@@ -23,11 +23,10 @@ class UserController {
   });
 
   static getURL = asyncHandler(async (req: Request, res: Response) => {
-    const {contentType} = req.headers;
     const dto = UserUploadDTO.fromRequest(
       (req as any).user.uuid,
       req.body,
-      contentType!
+      req
     );
     const response = await UserService.getURL(dto);
 

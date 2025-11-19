@@ -9,7 +9,7 @@ class AnimalUploadDTO {
   constructor(
     public readonly uuid: string,
     public readonly filename: string,
-    public readonly contentType: string
+    public readonly contentType: string, 
   ) {}
 
   static fromRequest(body: AnimalUploadBody, headers: Request): AnimalUploadDTO {
