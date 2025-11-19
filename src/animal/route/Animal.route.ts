@@ -40,13 +40,13 @@ class AnimalRoutes {
       AnimalController.getByShelter
     );
     this.routes.put(
-      "/:id",
+      "admin/:id",
       Autentificate.validateToken,
       Autentificate.validateAdminAcess,
       AnimalController.update
     );
     this.routes.delete(
-      "/:id",
+      "admin/:id",
       Autentificate.validateToken,
       Autentificate.validateAdminAcess,
       AnimalController.delete

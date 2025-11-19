@@ -13,8 +13,17 @@ class UserRoutes {
 
   initRoutes() {
     this.routes.post("/create", UserController.createUser);
-    this.routes.post("/getURL", Autentificate.validateToken, UserController.getURL);
+    this.routes.post(
+      "/getURL",
+      Autentificate.validateToken,
+      UserController.getURL
+    );
     this.routes.post("/get", UserController.getUser);
+    this.routes.get(
+      "/me",
+      Autentificate.validateToken,
+      UserController.getAcess
+    );
     this.routes.put(
       "/update",
       Autentificate.validateToken,

@@ -46,6 +46,10 @@ class UserController {
     res.status(200).json({ sucess: true, data: response });
   });
 
+  static getAcess = asyncHandler(async (req: Request, res: Response) => {
+    return res.status(200).send({ sucess: true, acesso: (req as any).user.acess});
+  })
+
   static updateUser = asyncHandler(async (req: Request, res: Response) => {
     const dto = UserUpdateDTO.fromRequest({
       users: (req as any).user,

@@ -19,11 +19,9 @@ class Autentificate{
     }
 
     static async validateAdminAcess(req: Request, res: Response, next: NextFunction){
-        const token = Autentificate.getToken(req)
-
-        const decode = jwt.verify(token, process.env.SKJWT as string) as JwtPayload;
+        const user = (req as any).user as JwtPayload;
         
-        if(decode.acess != 2) throw AppError.unauthorized("Acesso negado");
+        if(user.acess != 2) throw AppError.unauthorized("Acesso negado");
 
         next()
     }

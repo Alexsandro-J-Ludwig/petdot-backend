@@ -39,7 +39,7 @@ router: Router;
       AdoptionController.getByAnimalUuid,
     );
     this.router.delete(
-      "/deletar/:uuid",
+      "/admin/deletar/:uuid",
       Autentificate.validateToken,
       Autentificate.validateAdminAcess,
       AdoptionController.deleteByUuid,
