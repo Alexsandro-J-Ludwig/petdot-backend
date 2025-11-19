@@ -43,9 +43,17 @@ class UserController {
   static getUser = asyncHandler(async (req: Request, res: Response) => {
     const dto = UserLoginDTO.fromRequest(req.body);
     const response = await UserService.getUser(dto);
-    res.status(200).json({ sucess: true, data: response });
+    res
+      .cookie("Access_token", `Bearer ${response.token}`, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 96000000,
+        sameSite: "strict",
+      })
+      .status(201)
+      .send("Usuario criado");
   });
-
+  
   static getAcess = asyncHandler(async (req: Request, res: Response) => {
     return res.status(200).send({ sucess: true, acesso: (req as any).user.acess});
   })

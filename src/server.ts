@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { Connection } from "./config/db.config.js";
 import e, { type Application } from "express";
+import cors from "cors";
 import { ErrorHandle } from "./middleware/ErrorHandle.js";
 import { Logger } from "./utils/Logger.js";
 
@@ -21,6 +22,11 @@ class Server {
     this.app = e();
     this.app.use(e.json());
     this.app.use(e.urlencoded({ extended: true }));
+    this.app.use(cors({
+      origin: "*",
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE"],
+    }));
 
     this.connection = new Connection();
 

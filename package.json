@@ -21,28 +21,29 @@
     "url": "https://github.com/Alexsandro-J-Ludwig/petdot-backend/issues"
   },
   "homepage": "https://github.com/Alexsandro-J-Ludwig/petdot-backend#readme",
-  "devDependencies": {
-    
-  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.930.0",
     "@aws-sdk/s3-request-presigner": "^3.930.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.0",
     "@types/validator": "^13.15.9",
     "@types/winston": "^2.4.4",
     "aws-sdk": "^2.1692.0",
     "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7",
-    "validator": "^13.15.23",
-    "winston": "^3.18.3",
-    "@types/express": "^5.0.5",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.10.0",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "validator": "^13.15.23",
+    "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19"
   }
 }
