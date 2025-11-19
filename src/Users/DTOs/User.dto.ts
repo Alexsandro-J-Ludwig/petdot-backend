@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { UserValidator } from "./UserValidator.js";
 
 interface UserBody {
@@ -17,12 +18,12 @@ class UserDTO {
     UserValidator.validateAll(this);
   }
 
-  static fromRequest(body: UserBody): UserDTO {
+  static fromRequest(body: Request): UserDTO {
     return new UserDTO(
-      body.name,
-      body.email,
-      body.pass,
-      body.celular
+      body.body.name,
+      body.body.email,
+      body.body.pass,
+      body.body.celular
     );
   }
 }
