@@ -12,23 +12,20 @@ class UserController {
     const response = await UserService.createUser(dto);
 
     res
-      .cookie("Access_token", response.token, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 96000000,
-        sameSite: "strict",
-      })
+      .cookie("Access_token", `Bearer ${response.token}`, {})
       .status(201)
       .send("Usuario criado");
   });
 
   static getURL = asyncHandler(async (req: Request, res: Response) => {
-    const dto = UserUploadDTO.fromRequest(
-      (req as any).user.uuid,
-      req.body,
-      req
-    );
+    const dto = UserUploadDTO.fromRequest(req);
     const response = await UserService.getURL(dto);
+    res.status(200).json(response);
+  });
+
+  static getUser = asyncHandler(async (req: Request, res: Response) => {
+    const dto = UserLoginDTO.fromRequest(req.body);
+    const response = await UserService.getUser(dto);
 
     res
       .cookie("Access_token", `Bearer ${response.token}`, {
@@ -37,32 +34,18 @@ class UserController {
         maxAge: 96000000,
         sameSite: "strict",
       })
-      .status(200);
-  });
-
-  static getUser = asyncHandler(async (req: Request, res: Response) => {
-    const dto = UserLoginDTO.fromRequest(req.body);
-    const response = await UserService.getUser(dto);
-    res
-      .cookie("Access_token", response.token, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 96000000,
-        sameSite: "strict",
-      })
       .status(201)
       .send("Usuario criado");
   });
-  
+
   static getAcess = asyncHandler(async (req: Request, res: Response) => {
-    return res.status(200).send({ sucess: true, acesso: (req as any).user.acess});
-  })
+    return res
+      .status(200)
+      .send({ sucess: true, acesso: (req as any).user.acess });
+  });
 
   static updateUser = asyncHandler(async (req: Request, res: Response) => {
-    const dto = UserUpdateDTO.fromRequest(
-      (req as any).user,
-      req.body,
-    );
+    const dto = UserUpdateDTO.fromRequest((req as any).user, req.body);
     const response = UserService.updateUser(dto);
     res.status(200).json({ sucess: true, data: response });
   });

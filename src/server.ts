@@ -22,11 +22,13 @@ class Server {
     this.app = e();
     this.app.use(e.json());
     this.app.use(e.urlencoded({ extended: true }));
-    this.app.use(cors({
-      origin: "*",
+    this.app.use(cors(
+      {
+      origin: "http://localhost:5173",
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE"],
-    }));
+    }
+  ));
 
     this.connection = new Connection();
 

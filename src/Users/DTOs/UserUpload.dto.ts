@@ -1,6 +1,10 @@
 import { Request } from "express";
 import { UserValidator } from "./UserValidator.js";
 
+interface UserUploadBody {
+  filename: string;
+}
+
 class UserUploadDTO {
   constructor(
     public readonly uuid: string,
@@ -11,10 +15,11 @@ class UserUploadDTO {
     UserValidator.validateUUID(uuid);
   }
 
-  static fromRequest(uuid: string, body: Request, headers: Request): UserUploadDTO {
-    const filename = body.body.filename;
-    const contentType = headers.headers["content-type"];
-    return new UserUploadDTO(uuid, filename, contentType!);
+  static fromRequest(req: Request): UserUploadDTO {
+    const uuid = (req as any).user.uuid;
+    const filename = req.body.filename;
+    const contentType = req.headers["content-type"]!;
+    return new UserUploadDTO(uuid, filename, contentType);
   }
 }
 

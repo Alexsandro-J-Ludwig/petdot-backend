@@ -35,7 +35,7 @@ class UserService {
       { expiresIn: 92600 }
     );
     
-    new Logger().logInfo(`User created. ${Date.now()}`);
+    
     return new UserResponseDTO(token, "Usuário criado com sucesso");
   }
 

@@ -27,8 +27,10 @@ class Autentificate{
     }
 
     static getToken(req: Request){
-        const authHeader = req.cookies.Access_token;
-        const token = authHeader && authHeader.split(" ")[1];
+        const authHeader = req.headers.cookie;
+        const decode = decodeURIComponent(authHeader!);
+    
+        const token = decode && decode.split(" ")[1];
 
         if(!token) {
             throw AppError.unauthorized("Token invalid");
