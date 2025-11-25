@@ -18,7 +18,8 @@ class UserUploadDTO {
   static fromRequest(req: Request): UserUploadDTO {
     const uuid = (req as any).user.uuid;
     const filename = req.body.filename;
-    const contentType = req.headers["content-type"]!;
+    // const contentType = req.headers["content-type"]!;
+    const contentType = req.body.contentType;
     return new UserUploadDTO(uuid, filename, contentType);
   }
 }

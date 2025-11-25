@@ -18,6 +18,8 @@ class UserController {
   });
 
   static getURL = asyncHandler(async (req: Request, res: Response) => {
+    // console.log(req);
+    
     const dto = UserUploadDTO.fromRequest(req);
     const response = await UserService.getURL(dto);
     res.status(200).json(response);

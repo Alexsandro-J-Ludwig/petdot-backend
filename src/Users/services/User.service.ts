@@ -51,7 +51,7 @@ class UserService {
   
     const bucket = process.env.R2_BUCKET!;
     const key = `upload/${dto.uuid}/${dto.filename}`;
-  
+    
     const command = new PutObjectCommand({
       Bucket: bucket,
       Key: key,
