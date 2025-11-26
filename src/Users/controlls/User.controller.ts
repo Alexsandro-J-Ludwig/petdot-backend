@@ -11,12 +11,12 @@ class UserController {
     const dto = UserDTO.fromRequest(req.body);
     const response = await UserService.createUser(dto);
 
-    res.status(201).json({ success: true, data: response.token })
+    res.status(201).json({ success: true, data: response.token });
   });
 
   static getURL = asyncHandler(async (req: Request, res: Response) => {
     // console.log(req);
-    
+
     const dto = UserUploadDTO.fromRequest(req);
     const response = await UserService.getURL(dto);
     res.status(200).json(response);
@@ -32,17 +32,18 @@ class UserController {
   static getAcess = asyncHandler(async (req: Request, res: Response) => {
     return res
       .status(200)
-      .send({ sucess: true, acesso: (req as any).user.acess });
+      .send({ sucess: true, acesso: (req as any).user.acesso });
   });
 
-  static updateUser = asyncHandler(async (req: Request, res: Response) => {
-    const dto = UserUpdateDTO.fromRequest((req as any).user, req.body);
-    const response = UserService.updateUser(dto);
+  static updateUser = asyncHandler(async (req: Request, res: Response) => {    
+    const dto = UserUpdateDTO.fromRequest((req as any).user.uuid, req.body);
+    const response = await UserService.updateUser(dto);
+
     res.status(200).json({ sucess: true, data: response });
   });
 
   static deleteUser = asyncHandler(async (req: Request, res: Response) => {
-    const response = UserService.deleteUser((req as any).user.uuid);
+    const response = await UserService.deleteUser((req as any).user.uuid);
     res.status(200).json({ sucess: true, data: response });
   });
 }

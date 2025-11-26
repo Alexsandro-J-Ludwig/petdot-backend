@@ -5,7 +5,7 @@ class UserRepository {
     return await UserModel.create(data);
   }
 
-  static async getUserById(uuid: string): Promise<UserModel | null> {
+  static async getUserById(uuid: string): Promise<UserModel | null> {    
     return await UserModel.findOne({ where: { uuid } });
   }
 
@@ -14,7 +14,10 @@ class UserRepository {
   }
 
   static async updateUser(data: any): Promise<[affectedCount: number]> {
-    const { uuid, ...fields } = data;
+    const uuid = typeof data.uuid === "string" ? data.uuid : data.uuid?.uuid;
+
+    const fields = { ...data };
+    delete fields.uuid;
 
     const update = Object.fromEntries(
       Object.entries(fields).filter(([_, value]) => value !== undefined)

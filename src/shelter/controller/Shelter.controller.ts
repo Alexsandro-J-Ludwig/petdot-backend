@@ -31,7 +31,6 @@ class ShelterController {
   });
 
   static getByUser = asyncHandler(async (req: Request, res: Response) => {
-    console.log((req as any).user.uuid)
     const response: ShelterResponseDTO = await ShelterService.getByUser(
       (req as any).user.uuid
     );

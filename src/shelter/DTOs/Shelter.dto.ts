@@ -7,7 +7,7 @@ interface ShelterBody {
   uuid_address: string;
   phonenumber: string;
   email: string;
-};
+}
 
 class ShelterDTO {
   constructor(
@@ -17,12 +17,20 @@ class ShelterDTO {
     public readonly uuid_address: string,
     public readonly phonenumber: string,
     public readonly email: string,
-    public readonly uuid_user: string,
+    public readonly uuid_user: string
   ) {
-    ShelterValidation.validatorAll(this);
-  };
+    ShelterValidation.validatorAll({
+      name: this.name,
+      cnpj: this.cnpj,
+      uuid_address: this.uuid_address,
+      phonenumber: this.phonenumber,
+      email: this.email,
+      uuid_user: this.uuid_user,
+    });
+  }
 
   static fromRequest(user: any, body: ShelterBody): ShelterDTO {
+    const uuid_user = typeof user === "string" ? user : user?.uuid;
     return new ShelterDTO(
       body.name,
       body.cnpj,
@@ -30,9 +38,9 @@ class ShelterDTO {
       body.uuid_address,
       body.phonenumber,
       body.email,
-      user
+      uuid_user
     );
-  };
-};
+  }
+}
 
 export { ShelterDTO };

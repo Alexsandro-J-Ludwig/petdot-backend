@@ -87,17 +87,17 @@ class UserService {
     return new UserResponseDTO(token, "Usuário autenticado com sucesso");
   }
 
-  static async updateUser(dto: UserUpdateDTO) {
+  static async updateUser(dto: UserUpdateDTO) {   
     const existing = await UserRepository.getUserById(dto.uuid);
     if (!existing) throw AppError.notFound("Usuário");
-
+    
     let updatedData = { ...dto };
 
     if (dto.pass !== undefined && dto.pass !== null) {
       const hashPass = await bcrypt.hash(dto.pass, 10);
       updatedData = { ...updatedData, pass: hashPass };
     }
-
+    
     await UserRepository.updateUser(updatedData);
 
     const response = await UserRepository.getUserById(dto.uuid);
@@ -114,7 +114,7 @@ class UserService {
       );
     }
 
-    return new UserResponseDTO(token, "Usuário atualizado com sucesso");
+    return new UserResponseDTO(token, "Usuário atualizado com sucesso", "", "");
   }
 
   static async deleteUser(uuid: string) {
