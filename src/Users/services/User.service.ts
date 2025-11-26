@@ -34,8 +34,7 @@ class UserService {
       process.env.SKJWT as string,
       { expiresIn: 92600 }
     );
-    
-    
+
     return new UserResponseDTO(token, "Usuário criado com sucesso");
   }
 
@@ -48,23 +47,23 @@ class UserService {
         secretAccessKey: process.env.R2_SECRET_KEY!,
       },
     });
-  
+
     const bucket = process.env.R2_BUCKET!;
     const key = `upload/${dto.uuid}/${dto.filename}`;
-    
+
     const command = new PutObjectCommand({
       Bucket: bucket,
       Key: key,
       ContentType: dto.contentType,
     });
-  
+
     const uploadURL = await getSignedUrl(r2, command, { expiresIn: 120 });
-  
+
     const publicURL = `https://pub-0f7462610d0045a4b620fb4ed1b36606.r2.dev/${key}`;
-  
+
     return new UserResponseDTO(undefined, "", uploadURL, publicURL);
   }
-  
+
   static async getUser(dto: UserLoginDTO) {
     const response = await UserRepository.getUserByEmail(dto.email);
     if (!response) throw AppError.notFound("Usuário");
@@ -84,7 +83,7 @@ class UserService {
       { expiresIn: 92600 }
     );
 
-    new Logger().logInfo("User authenticated successfully")
+    new Logger().logInfo("User authenticated successfully");
     return new UserResponseDTO(token, "Usuário autenticado com sucesso");
   }
 
@@ -103,8 +102,9 @@ class UserService {
 
     const response = await UserRepository.getUserById(dto.uuid);
 
+    let token = "";
     if (dto.nivel_acesso !== undefined && response) {
-      jwt.sign(
+      token = jwt.sign(
         {
           uuid: response.dataValues.uuid,
           acesso: response.dataValues.nivel_acesso,
@@ -113,9 +113,8 @@ class UserService {
         { expiresIn: 92600 }
       );
     }
-    
-    new Logger().logInfo("User was updated")
-    return new UserResponseDTO("", "Usuário atualizado com sucesso");
+
+    return new UserResponseDTO(token, "Usuário atualizado com sucesso");
   }
 
   static async deleteUser(uuid: string) {
@@ -124,7 +123,7 @@ class UserService {
 
     await UserRepository.deleteUser(uuid);
 
-    new Logger().logInfo("User was deleted")
+    new Logger().logInfo("User was deleted");
     return new UserResponseDTO("", "Usuário deletado com sucesso");
   }
 }
