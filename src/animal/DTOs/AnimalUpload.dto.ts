@@ -1,21 +1,18 @@
 import { Request } from "express";
 
 interface AnimalUploadBody {
-  uuid: string;
-  filename: string;
+  filename: string | undefined;
 }
 
 class AnimalUploadDTO {
   constructor(
-    public readonly uuid: string,
-    public readonly filename: string,
+    public readonly filename: string | undefined,
     public readonly contentType: string, 
   ) {}
 
-  static fromRequest(body: AnimalUploadBody, headers: Request): AnimalUploadDTO {
+  static fromRequest(filename: AnimalUploadBody, headers: Request): AnimalUploadDTO {
     return new AnimalUploadDTO(
-      body.uuid,
-      body.filename,
+      filename.filename as string,
       headers.headers["content-type"] as string
     );
   }

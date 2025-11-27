@@ -22,7 +22,7 @@ class AnimalService {
     )
       throw AppError.conflict("Animal ja existe");
 
-    if (!dto.vaccines)
+    if (dto.vaccines.length === 0)
       throw AppError.badRequest("Vaccines information is required");
 
     const response = await AnimalRepository.createAnimal(dto);
@@ -47,7 +47,8 @@ class AnimalService {
 
     const bucket = process.env.R2_BUCKET as string;
 
-    const key = `upload/${dto.uuid}/${dto.filename}`;
+    const uuid = crypto.randomUUID();
+    const key = `upload/${uuid}/${dto.filename}`;
 
     const command = new PutObjectCommand({
       Bucket: bucket,
@@ -95,10 +96,12 @@ class AnimalService {
   static async update(
     dto: AnimalUpdateDTO
   ): Promise<AnimalResponseDTO> {
+    console.log("service: ", dto);
+    
     const existing = await AnimalRepository.getAnimalById(dto.uuid);
     if (!existing) throw AppError.notFound("Animal");
 
-    const response = await AnimalRepository.updateAnimal(dto);
+    await AnimalRepository.updateAnimal(dto);
 
     return AnimalResponseDTO.fromResponse({ message: "sucess" });
   }

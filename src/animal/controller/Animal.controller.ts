@@ -12,8 +12,10 @@ class AnimalController {
         res.status(201).json(response);
     })
 
-    static getURL = asyncHandler(async(req: Request, res: Response) => {
-        const dto = AnimalUploadDTO.fromRequest(req.body, req);
+    static getURL = asyncHandler(async(req: Request, res: Response) => {    
+        const { filename } = req.params
+
+        const dto = AnimalUploadDTO.fromRequest({ filename }, req);
         const response = await AnimalService.getURL(dto);
         res.status(200).json(response);
     })
@@ -34,6 +36,8 @@ class AnimalController {
     })
 
     static update = asyncHandler(async(req: Request, res: Response) => {
+        console.log("controller: ", req.body);
+        
         const dto = AnimalUpdateDTO.fromRequest(req, req.body);
         const response = await AnimalService.update(dto);
         res.status(200).json(response);

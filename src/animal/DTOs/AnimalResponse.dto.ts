@@ -1,14 +1,16 @@
 class AnimalResponseDTO {
   constructor(
-    public readonly uuid: string | undefined,
-    public readonly name: string | undefined,
-    public readonly redemption_date: Date | undefined,
-    public readonly species: string | undefined,
-    public readonly race: string | undefined,
-    public readonly gender: string | undefined,
-    public readonly vaccines: string | undefined,
-    public readonly uuid_shelter: string | undefined,
+    public readonly uuid?: string | undefined,
+    public readonly name?: string | undefined,
+    public readonly redemption_date?: Date | undefined,
+    public readonly species?: string | undefined,
+    public readonly race?: string | undefined,
+    public readonly gender?: string | undefined,
+    public readonly vaccines?: string | undefined,
     public readonly description?: string | undefined,
+    public readonly uuid_shelter?: string | undefined,
+    public readonly disponible?: boolean | undefined,
+    public readonly imageURL?: string | undefined,
     public readonly message?: string | {},
     public readonly uploadURL?: string | {},
     public readonly publicURL?: string | {}
@@ -23,11 +25,12 @@ class AnimalResponseDTO {
       response.race || "",
       response.gender || "",
       response.vaccines || "",
-      response.uuid_shelter || "",
       response.description || "",
+      response.uuid_shelter || "",
+      response.disponible || "",
+      response.imageURL || "",
       response.message || "",
       "",
-      response.publicURL || "",
     );
   }
 
@@ -41,6 +44,8 @@ class AnimalResponseDTO {
       "",
       "",
       "",
+      "",
+      false,
       "",
       "",
       uploadURL,

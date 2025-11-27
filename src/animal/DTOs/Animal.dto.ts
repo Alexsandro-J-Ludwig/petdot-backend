@@ -3,25 +3,27 @@ import { AnimalValidation } from "./AnimalValidation.js";
 
 interface AnimalBody {
   name: string;
-  redemption_date: Date;
+  redemption_date: string;
   species: string;
   race: string;
   gender: string;
-  vaccines: string;
+  vaccines: string[];
   uuid_shelter: string;
   description?: string;
+  imageURL?: string
 }
 
 class AnimalDTO {
   constructor(
     public readonly name: string,
-    public readonly redemption_date: Date,
+    public readonly redemption_date: string,
     public readonly species: string,
     public readonly race: string,
     public readonly gender: string,
-    public readonly vaccines: string,
+    public readonly vaccines: string[],
     public readonly uuid_shelter: string,
-    public readonly description?: string
+    public readonly description?: string,
+    public readonly imageURL?: string
   ) {
     AnimalValidation.valdiatorAll(this);
   }
@@ -35,7 +37,8 @@ class AnimalDTO {
       body.gender,
       body.vaccines,
       body.uuid_shelter,
-      body.description
+      body.description,
+      body.imageURL
     );
   }
 }

@@ -3,48 +3,47 @@ import { AnimalValidation } from "./AnimalValidation.js";
 
 interface AnimalBody {
   name?: string | undefined;
-  redemption_date?: Date | undefined;
+  redemption_date?: string | undefined;
   species?: string | undefined;
   race?: string | undefined;
   gender?: string | undefined;
   vaccines?: string | undefined;
   uuid_shelter?: string | undefined;
   description?: string | undefined;
+  imageURL?: string | undefined;
 }
 
 class AnimalUpdateDTO {
   constructor(
     public readonly uuid: string,
     public readonly name?: string,
-    public readonly redemption_date?: Date,
+    public readonly redemption_date?: string,
     public readonly species?: string,
     public readonly race?: string,
     public readonly gender?: string,
     public readonly vaccines?: string,
-    public readonly uuid_shelter?: string,
-    public readonly description?: string
+    public readonly imageURL?: string
   ) {
     if (name) AnimalValidation.valitorName(name);
-    if (redemption_date)
-      AnimalValidation.validatorRedemption_date(redemption_date);
     if (species) AnimalValidation.valdiatorSpecies(species);
     if (race) AnimalValidation.validatorRace(race);
     if (gender) AnimalValidation.validatorGender(gender);
-    if (vaccines) AnimalValidation.validatorVaccines(vaccines);
-    if (uuid_shelter) AnimalValidation.validatorUUID_shelter(uuid_shelter);
   }
 
-  static fromRequest(params: Request, body: AnimalBody): AnimalUpdateDTO {
+  static fromRequest(
+    req: Request,
+    body: { data: AnimalBody }
+  ): AnimalUpdateDTO {
+    const b = body.data;
     return new AnimalUpdateDTO(
-      params.params.id!,
-      body.name || undefined,
-      body.redemption_date || undefined,
-      body.species || undefined,
-      body.race || undefined,
-      body.gender || undefined,
-      body.vaccines || undefined,
-      body.uuid_shelter || undefined,
-      body.description || undefined
+      req.params.id!,
+      b.name,
+      b.redemption_date,
+      b.species,
+      b.race,
+      b.gender,
+      b.vaccines,
+      b.imageURL
     );
   }
 }

@@ -61,8 +61,8 @@ class AnimalModel extends Model<AnimalModelProps, AnimalModelOptional> {
                     allowNull: false
                 },
                 vaccines: {
-                    type: DT.STRING,
-                    defaultValue: "",
+                    type: DT.ARRAY(DT.STRING),
+                    defaultValue: [],
                     allowNull: false,
                 },
                 description: {
@@ -80,7 +80,7 @@ class AnimalModel extends Model<AnimalModelProps, AnimalModelOptional> {
                     allowNull: false,
                 },
                 imageURL: {
-                    type: DT.ARRAY(DT.STRING),
+                    type: DT.STRING,
                     allowNull: true,
                 }
             }, {
