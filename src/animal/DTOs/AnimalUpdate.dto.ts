@@ -11,6 +11,7 @@ interface AnimalBody {
   uuid_shelter?: string | undefined;
   description?: string | undefined;
   imageURL?: string | undefined;
+  disponible?: boolean | undefined;
 }
 
 class AnimalUpdateDTO {
@@ -22,7 +23,9 @@ class AnimalUpdateDTO {
     public readonly race?: string,
     public readonly gender?: string,
     public readonly vaccines?: string,
-    public readonly imageURL?: string
+    public readonly imageURL?: string,
+    public readonly disponible?: boolean
+  
   ) {
     if (name) AnimalValidation.valitorName(name);
     if (species) AnimalValidation.valdiatorSpecies(species);
@@ -43,7 +46,8 @@ class AnimalUpdateDTO {
       b.race,
       b.gender,
       b.vaccines,
-      b.imageURL
+      b.imageURL,
+      b.disponible
     );
   }
 }

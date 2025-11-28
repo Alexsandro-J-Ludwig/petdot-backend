@@ -5,7 +5,7 @@ import { AdoptionDTO } from "../DTOs/Adoption.dto.js";
 
 class AdoptionController{
     static create = asyncHandler(async (req: Request, res: Response) => {
-        console.log((req as any).user.uuid, req.body);
+        console.log(req.body);
         
         const dto = AdoptionDTO.fromRequest((req as any).user.uuid, req.body);
         const response =  await AdoptionService.createAdoption(dto);

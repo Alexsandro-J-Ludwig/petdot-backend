@@ -22,9 +22,6 @@ class AnimalService {
     )
       throw AppError.conflict("Animal ja existe");
 
-    if (dto.vaccines.length === 0)
-      throw AppError.badRequest("Vaccines information is required");
-
     const response = await AnimalRepository.createAnimal(dto);
 
     return AnimalResponseDTO.fromResponse({
