@@ -20,8 +20,8 @@ class Server {
   constructor() {
     this.logger.logInfo("Iniciando o servidor...");
     this.app = e();
-    this.app.use(e.json());
-    this.app.use(e.urlencoded({ extended: true }));
+    this.app.use(e.json({ limit: "20mb" }));
+    this.app.use(e.urlencoded({ extended: true, limit: "20mb" }));
     this.app.use(cors(
       {
       origin: "http://localhost:5173",

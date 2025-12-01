@@ -7,6 +7,8 @@ import { AddressUpdateDTO } from "../DTOs/AddressUpdate.dto.js";
 
 class AddressController {
   static createAddress = asyncHandler(async (req: Request, res: Response) => {
+    console.log(req.body);
+    
     const dto = AddressDTO.fromRequest((req as any).user.uuid, req.body);
 
     const response: AddressResponseDTO = await AddressService.createAddress(

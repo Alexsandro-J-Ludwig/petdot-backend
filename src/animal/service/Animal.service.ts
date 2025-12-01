@@ -66,7 +66,6 @@ class AnimalService {
 
     return AnimalResponseDTO.fromResponse({
       ...response.get(),
-      message: "sucess",
     });
   }
 

@@ -7,8 +7,9 @@ import { AnimalUploadDTO } from "../DTOs/AnimalUpload.dto.js";
 
 class AnimalController {
     static create = asyncHandler(async(req: Request, res: Response) => {
-        const dto = AnimalDTO.fronRequest(req.body);
+        const dto = AnimalDTO.fronRequest(req.body);   
         const response = await AnimalService.create(dto);
+        
         res.status(201).json(response);
     })
 
