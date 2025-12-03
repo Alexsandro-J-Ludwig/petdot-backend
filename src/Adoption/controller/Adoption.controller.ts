@@ -2,10 +2,13 @@ import type { Request, Response } from "express";
 import { asyncHandler } from "../../utils/AsyncHandler.js";
 import { AdoptionService } from "../service/Adoption.service.js";
 import { AdoptionDTO } from "../DTOs/Adoption.dto.js";
+import { Logger } from "../../utils/Logger.js";
 
 class AdoptionController{
+    private logger: Logger = new Logger();
+
     static create = asyncHandler(async (req: Request, res: Response) => {
-        console.log(req.body);
+        console.log("Entrou no controller: ", req.body);
         
         const dto = AdoptionDTO.fromRequest((req as any).user.uuid, req.body);
         const response =  await AdoptionService.createAdoption(dto);

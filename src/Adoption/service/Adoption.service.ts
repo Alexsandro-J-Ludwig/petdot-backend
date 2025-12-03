@@ -6,6 +6,8 @@ import { AdoptionRepository } from "../repository/Adoption.repository.js";
 
 class AdoptionService {
   static async createAdoption(dto: AdoptionDTO): Promise<AdoptionResponseDTO> {
+    console.log("Entrou no service: ", dto)
+    
     const existing = await AdoptionRepository.findByAnimalUuid(dto.uuid_animal);
     if (existing) throw AppError.conflict("Animal já adotado");
 

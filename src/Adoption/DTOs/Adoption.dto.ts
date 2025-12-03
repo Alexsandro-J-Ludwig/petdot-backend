@@ -18,6 +18,8 @@ class AdoptionDTO {
   }
 
   static fromRequest(user: string, body: AdoptionBody): AdoptionDTO {    
+    console.log("Entrou no DTO: ", body);
+    
     return new AdoptionDTO(
       user,
       body.uuid_animal,
