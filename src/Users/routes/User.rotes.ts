@@ -21,7 +21,7 @@ class UserRoutes {
     this.routes.post("/get", UserController.getUser);
     this.routes.get(
       "/",
-      Autentificate.validateAdminAcess,
+      Autentificate.validateToken,
       UserController.getInfo
     );
     this.routes.get(
