@@ -6,7 +6,7 @@ class UserResponseDTO {
         public readonly message?: string,
         public readonly uploadURL?: UserValidator,
         public readonly publicURL?: UserValidator,
-        public readonly user?: string[]
+        public readonly user?: any
     ){}
 }
 

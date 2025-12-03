@@ -91,12 +91,9 @@ class UserService {
     const response = await UserRepository.getUserById(uuid);
     if (!response) throw AppError.notFound("Usuário");
 
-    return new UserResponseDTO("", "success", "", "", [
-      response.dataValues.name,
-      response.dataValues.email,
-      response.dataValues.celular,
-      response.dataValues.nivel_acesso,
-    ]);
+    return new UserResponseDTO("", "success", "", "", {
+      data: response.dataValues,
+    });
   }
 
   static async updateUser(dto: UserUpdateDTO) {
