@@ -9,6 +9,10 @@ class AddressRepository {
     return await AddressModel.findOne({ where: { uuid_user } });
   }
 
+  static async getAddressByUser(uuid_user: string): Promise<AddressModel | null> {
+    return await AddressModel.findOne({ where: { uuid_user } });
+  }
+
   static async updateAddress(data: any): Promise<[affectedCount: number]> {
     const { uuid_user, ...fields } = data;
 

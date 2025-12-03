@@ -25,6 +25,14 @@ class AddressController {
     res.status(200).json(response);
   });
 
+  static getAddressByUser = asyncHandler(async (req: Request, res: Response) => {
+    const response = await AddressService.getAddressByUser(
+      (req as any).user.uuid
+    );
+
+    res.status(200).json(response);
+  })
+
   static updateAddress = asyncHandler(async (req: Request, res: Response) => {
     const dto = AddressUpdateDTO.fromRequest((req as any).user.uuid, req.body);
 

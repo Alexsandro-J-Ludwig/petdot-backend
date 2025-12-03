@@ -20,6 +20,13 @@ class AddressService {
     return new AddressResponseDTO(response, "Endereço encontrado com sucesso");
   }
 
+  static async getAddressByUser(uuid_user: string) {
+    const response = await AddressRepository.getAddressByUser(uuid_user)
+    if (!response) throw AppError.notFound("Address not found");
+
+    return new AddressResponseDTO(response, "Endereço encontrado com sucesso")
+  }
+
   static async updateAddress(dto: AddressUpdateDTO) {
     const existing = await AddressRepository.getAddress(dto.uuid_user);
     if (!existing) throw AppError.notFound("Address not found");

@@ -12,6 +12,7 @@ class AddressRotue{
     initRoutes(){
         this.routes.post("/create", Autentificate.validateToken, AddressController.createAddress);
         this.routes.get("/get", Autentificate.validateToken, AddressController.getAddress);
+        this.routes.get("/get/user", Autentificate.validateToken, AddressController.getAddressByUser);
         this.routes.put("/update", Autentificate.validateToken, AddressController.updateAddress);
         this.routes.delete("/delete", Autentificate.validateToken, AddressController.deleteAddress);
     }
