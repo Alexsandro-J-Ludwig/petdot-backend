@@ -20,6 +20,11 @@ class UserRoutes {
     );
     this.routes.post("/get", UserController.getUser);
     this.routes.get(
+      "/",
+      Autentificate.validateAdminAcess,
+      UserController.getInfo
+    );
+    this.routes.get(
       "/me",
       Autentificate.validateToken,
       UserController.getAcess

@@ -29,13 +29,18 @@ class UserController {
     res.status(200).json({ sucess: true, data: response.token });
   });
 
-  static getAcess = asyncHandler(async (req: Request, res: Response) => {    
+  static getInfo = asyncHandler(async (req: Request, res: Response) => {
+    const response = await UserService.getInfo((req as any).user.uuid);
+    res.status(200).json({ sucess: true, data: response });
+  });
+
+  static getAcess = asyncHandler(async (req: Request, res: Response) => {
     return res
       .status(200)
       .send({ sucess: true, acesso: (req as any).user.acess });
   });
 
-  static updateUser = asyncHandler(async (req: Request, res: Response) => {    
+  static updateUser = asyncHandler(async (req: Request, res: Response) => {
     const dto = UserUpdateDTO.fromRequest((req as any).user.uuid, req.body);
     const response = await UserService.updateUser(dto);
 

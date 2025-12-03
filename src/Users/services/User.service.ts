@@ -87,17 +87,29 @@ class UserService {
     return new UserResponseDTO(token, "Usuário autenticado com sucesso");
   }
 
-  static async updateUser(dto: UserUpdateDTO) {   
+  static async getInfo(uuid: string) {
+    const response = await UserRepository.getUserById(uuid);
+    if (!response) throw AppError.notFound("Usuário");
+
+    return new UserResponseDTO("", "success", "", "", [
+      response.dataValues.name,
+      response.dataValues.email,
+      response.dataValues.celular,
+      response.dataValues.nivel_acesso,
+    ]);
+  }
+
+  static async updateUser(dto: UserUpdateDTO) {
     const existing = await UserRepository.getUserById(dto.uuid);
     if (!existing) throw AppError.notFound("Usuário");
-    
+
     let updatedData = { ...dto };
 
     if (dto.pass !== undefined && dto.pass !== null) {
       const hashPass = await bcrypt.hash(dto.pass, 10);
       updatedData = { ...updatedData, pass: hashPass };
     }
-    
+
     await UserRepository.updateUser(updatedData);
 
     const response = await UserRepository.getUserById(dto.uuid);
