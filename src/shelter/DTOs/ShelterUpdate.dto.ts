@@ -5,7 +5,6 @@ interface ShelterBody {
   name: string | undefined;
   cnpj: string | undefined;
   description: string | undefined;
-  uuid_address: string | undefined;
   phonenumber: string | undefined;
   email: string | undefined;
   uuid_user: string | undefined;
@@ -17,7 +16,6 @@ class ShelterUpdateDTO {
     public readonly name?: string,
     public readonly cnpj?: string,
     public readonly description?: string,
-    public readonly uuid_address?: string,
     public readonly phonenumber?: string,
     public readonly email?: string,
     public readonly uuid_user?: string
@@ -26,8 +24,6 @@ class ShelterUpdateDTO {
 
     if (name !== undefined) ShelterValidation.valdiatorName(name);
     if (cnpj !== undefined) ShelterValidation.validatorCnpj(cnpj);
-    if (uuid_address !== undefined)
-      ShelterValidation.validatorUuid_address(uuid_address);
     if (phonenumber !== undefined)
       ShelterValidation.validatorPhonenumber(phonenumber);
     if (email !== undefined) ShelterValidation.validatorEmail(email);
@@ -41,7 +37,6 @@ class ShelterUpdateDTO {
       body.name || undefined,
       body.cnpj || undefined,
       body.description || undefined,
-      body.uuid_address || undefined,
       body.phonenumber || undefined,
       body.email || undefined,
       body.uuid_user || undefined
