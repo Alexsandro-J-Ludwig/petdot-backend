@@ -24,7 +24,7 @@ class Server {
     this.app.use(e.urlencoded({ extended: true, limit: "20mb" }));
     this.app.use(cors(
       {
-      origin: "https://petdot-fronend.vercel.app",
+      origin: "https://petdot-fronend.vercel.app/",
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE"],
     }
