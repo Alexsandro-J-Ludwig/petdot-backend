@@ -42,7 +42,7 @@ class AddressValidator {
     city,
     state,
     cep,
-    uuid_user,
+    uuid_entidade,
   }: {
     address: string;
     number: string;
@@ -51,7 +51,7 @@ class AddressValidator {
     city: string;
     state: string;
     cep: string;
-    uuid_user: string;
+    uuid_entidade: string;
   }) {
     this.validatorAddress(address);
     this.validatorNumber(number);
@@ -60,7 +60,7 @@ class AddressValidator {
     this.validatorCity(city);
     this.validatorState(state);
     this.validatorCep(cep);
-    this.validatorUUID_User(uuid_user);
+    this.validatorUUID_User(uuid_entidade);
   }
 }
 

@@ -6,7 +6,7 @@ import { AddressRepository } from "../repository/Address.repository.js";
 
 class AddressService {
   static async createAddress(dto: AddressDTO) {
-    const existing = await AddressRepository.getAddress(dto.uuid_user);
+    const existing = await AddressRepository.getAddressByUser(dto.uuid_entidade);
     if (existing) throw AppError.conflict("User can only address");
 
     const result = await AddressRepository.createAddress(dto);

@@ -18,13 +18,7 @@ class ShelterValidation {
     if (isEmpty(cnpj)) throw AppError.badRequest("Cnpj cannot be empty");
     if (!isCNPJ.test(cnpj)) throw AppError.badRequest("Invalid Cnpj format");
   }
-
-  static validatorUuid_address(uuid_address: string) {
-    if (isEmpty(uuid_address))
-      throw AppError.badRequest("Address id cannot be empty");
-    if (!isUUID(uuid_address)) throw AppError.badRequest("Invalid address id");
-  }
-
+  
   static validatorPhonenumber(phonenumber: string) {
     if (isEmpty(phonenumber))
       throw AppError.badRequest("Phonenumber cannot be empty");
@@ -44,21 +38,19 @@ class ShelterValidation {
   static validatorAll({
     name,
     cnpj,
-    uuid_address,
     phonenumber,
     email,
     uuid_user,
   }: {
     name: string;
     cnpj: string;
-    uuid_address: string;
+
     phonenumber: string;
     email: string;
     uuid_user: string;
   }) {
     this.valdiatorName(name);
     this.validatorCnpj(cnpj);
-    this.validatorUuid_address(uuid_address);
     this.validatorPhonenumber(phonenumber);
     this.validatorEmail(email);
     this.validatorUuid_user(uuid_user);

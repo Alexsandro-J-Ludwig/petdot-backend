@@ -14,12 +14,10 @@ class ShelterService {
 
     response.dataValues.uuid_user = "";
 
-    return new ShelterResponseDTO(response.dataValues, "Shelter was created");
+    return new ShelterResponseDTO(response.dataValues.uuid, "Shelter was created");
   }
 
   static async getShelterById(uuid: string) {
-    console.log(uuid);
-    
     const response = await ShelterRepository.getShelterById(uuid);
     if (!response) throw AppError.notFound("Shelter not found");
 

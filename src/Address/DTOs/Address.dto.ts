@@ -20,7 +20,7 @@ class AddressDTO {
     public readonly city: string,
     public readonly state: string,
     public readonly cep: string,
-    public readonly uuid_user: string
+    public readonly uuid_entidade: string
   ) {
     AddressValidator.validatorAll(this);
   }

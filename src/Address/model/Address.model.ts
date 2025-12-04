@@ -9,7 +9,7 @@ interface AddressModelPros {
     city: string;
     state: string;
     cep: string;
-    uuid_user: string
+    uuid_entidade: string
 }
 
 interface AddressModelOptional extends Optional<AddressModelPros, "uuid"> {};
@@ -23,7 +23,7 @@ class AddressModel extends Model<AddressModelOptional, AddressModelPros>{
     public city!: string
     public state!: string;
     public cep!: string;
-    public uuid_user!: string;
+    public uuid_entidade!: string;
     
     static initialize(sequelize: any) {
         AddressModel.init(
@@ -62,7 +62,7 @@ class AddressModel extends Model<AddressModelOptional, AddressModelPros>{
                     type: DT.STRING,
                     allowNull: false,
                 },
-                uuid_user: {
+                uuid_entidade: {
                     type: DT.STRING,
                     allowNull: false,
                 }
