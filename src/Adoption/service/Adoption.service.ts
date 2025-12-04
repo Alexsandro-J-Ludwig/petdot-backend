@@ -20,7 +20,7 @@ class AdoptionService {
     const response = await AdoptionRepository.findByAnimalUuid(uuid);
     if (!response) throw AppError.notFound("Adoção não encontrada");
 
-    return AdoptionResponseDTO.fronResponse(response, "sucess");
+    return new AdoptionResponseDTO(response.dataValues, "sucess");
   }
 
   static async getAllAdoptions(): Promise<AdoptionResponseDTO> {
@@ -28,7 +28,7 @@ class AdoptionService {
     if (responses.length === 0)
       throw AppError.notFound("Nenhuma adoção encontrada");
 
-    return AdoptionResponseDTO.fronResponse(responses, "sucess");
+    return new AdoptionResponseDTO(responses, "sucess");
   }
 
   static async getAdoptionsByUserUuid(
@@ -37,8 +37,8 @@ class AdoptionService {
     const responses = await AdoptionRepository.findByUserUuid(uuid_user);
     if (responses && responses.length === 0)
       throw AppError.notFound("Nenhuma adoção encontrada");
-
-    return AdoptionResponseDTO.fronResponse(responses, "sucess");
+    
+    return new AdoptionResponseDTO(responses, "sucess");
   }
 
   static async getAdoptionByAnimalUuid(
@@ -47,7 +47,7 @@ class AdoptionService {
     const response = await AdoptionRepository.findByAnimalUuid(uuid_animal);
     if (!response) throw AppError.notFound("Adoção não encontrada");
 
-    return AdoptionResponseDTO.fronResponse(response, "sucess");
+    return new AdoptionResponseDTO(response.dataValues, "sucess");
   }
 
   static async deleteAdoptionByUuid(
@@ -57,10 +57,7 @@ class AdoptionService {
     if (!response) throw AppError.notFound("Adoção não encontrada");
 
     await AdoptionRepository.deleteByUuid(uuid);
-    return AdoptionResponseDTO.fronResponse(
-      response,
-      "Adoption deleted successfully"
-    );
+    return new AdoptionResponseDTO(response, "Adoption deleted successfully");
   }
 }
 
