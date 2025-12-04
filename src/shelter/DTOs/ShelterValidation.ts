@@ -44,7 +44,6 @@ class ShelterValidation {
   }: {
     name: string;
     cnpj: string;
-
     phonenumber: string;
     email: string;
     uuid_user: string;
