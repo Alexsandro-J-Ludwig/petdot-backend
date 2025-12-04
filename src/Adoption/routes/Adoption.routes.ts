@@ -18,7 +18,7 @@ router: Router;
       AdoptionController.create,
     );
     this.router.get(
-      "/:uuid",
+      "/get/:uuid",
       Autentificate.validateToken,
       AdoptionController.getByUuid,
     );

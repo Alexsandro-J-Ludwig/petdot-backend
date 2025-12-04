@@ -20,7 +20,7 @@ class AdoptionController{
         res.status(200).json(responses);
     })
 
-    static getByUserUuid = asyncHandler(async (req: Request, res: Response) => {
+    static getByUserUuid = asyncHandler(async (req: Request, res: Response) => {    
         const responses = await AdoptionService.getAdoptionsByUserUuid((req as any).user.uuid);
         res.status(200).json(responses);
     })
