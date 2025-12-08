@@ -31,7 +31,7 @@ class AdoptionController{
     })
 
     static deleteByUuid = asyncHandler(async (req: Request, res: Response) => {
-        const response = await AdoptionService.deleteAdoptionByUuid(req.params.uuid!);
+        const response = await AdoptionService.deleteAdoptionByUuid(req.params.id!);
         res.status(200).json(response);
     })
 }

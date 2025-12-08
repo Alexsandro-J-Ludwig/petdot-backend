@@ -39,8 +39,6 @@ class AnimalController {
     })
 
     static update = asyncHandler(async(req: Request, res: Response) => {
-        console.log("controller: ", req.body);
-        
         const dto = AnimalUpdateDTO.fromRequest(req, req.body);
         const response = await AnimalService.update(dto);
         res.status(200).json(response);

@@ -91,9 +91,7 @@ class AnimalService {
 
   static async update(
     dto: AnimalUpdateDTO
-  ): Promise<AnimalResponseDTO> {
-    console.log("service: ", dto);
-    
+  ): Promise<AnimalResponseDTO> {    
     const existing = await AnimalRepository.getAnimalById(dto.uuid);
     if (!existing) throw AppError.notFound("Animal");
 

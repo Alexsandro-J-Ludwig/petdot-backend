@@ -31,7 +31,7 @@ class AddressRotue {
       AddressController.getAddressByUser
     );
     this.routes.get(
-      "/get/shelter",
+      "/get/shelter/:uuid",
       Autentificate.validateToken,
       AddressController.getAddressShelter
     );
