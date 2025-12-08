@@ -36,7 +36,6 @@ class Server {
       }
       return callback(new Error("Origin not allowed by CORS"));
     },
-      credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE"],
     }
   ));

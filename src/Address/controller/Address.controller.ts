@@ -44,6 +44,16 @@ class AddressController {
     }
   );
 
+  static getAddressShelter = asyncHandler(async (req: Request, res: Response) => {
+    async (req: Request, res: Response) => {
+      const response = await AddressService.getAddressShelter(
+        req.body.uuid
+      );
+
+      res.status(200).json(response);
+    }
+  })
+
   static updateAddress = asyncHandler(async (req: Request, res: Response) => {
     const dto = AddressUpdateDTO.fromRequest((req as any).user.uuid, req.body);
 

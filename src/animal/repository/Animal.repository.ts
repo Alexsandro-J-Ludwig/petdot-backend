@@ -25,7 +25,7 @@ class AnimalRepository {
     const { uuid, ...fields } = data;
 
     const update = Object.fromEntries(
-      Object.entries(fields).filter(([_, value]) => value !== undefined)
+      Object.entries(fields).filter(([_, value]) => value !== "" && value !== null && value !== undefined)
     );
 
     return await AnimalModel.update(update, { where: { uuid } });

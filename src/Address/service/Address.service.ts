@@ -27,6 +27,13 @@ class AddressService {
     return new AddressResponseDTO(response, "Endereço encontrado com sucesso")
   }
 
+  static async getAddressShelter(uuid_shelter: string) {
+    const response = await AddressRepository.getAddressShelter(uuid_shelter)
+    if (!response) throw AppError.notFound("Address not found");
+
+    return new AddressResponseDTO(response, "Endereço encontrado com sucesso")
+  }
+
   static async updateAddress(dto: AddressUpdateDTO) {
     const existing = await AddressRepository.getAddress(dto.uuid_user);
     if (!existing) throw AppError.notFound("Address not found");

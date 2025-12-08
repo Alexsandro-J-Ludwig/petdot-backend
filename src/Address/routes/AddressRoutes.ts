@@ -30,6 +30,11 @@ class AddressRotue {
       Autentificate.validateToken,
       AddressController.getAddressByUser
     );
+    this.routes.get(
+      "/get/shelter",
+      Autentificate.validateToken,
+      AddressController.getAddressShelter
+    );
     this.routes.put(
       "/update",
       Autentificate.validateToken,
