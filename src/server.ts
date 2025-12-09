@@ -29,12 +29,7 @@ class Server {
     this.app.use(e.urlencoded({ extended: true, limit: "20mb" }));
     this.app.use(cors(
       {
-      origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      return callback(new Error("Origin not allowed by CORS"));
-    },
+      origin: "*" ,
       methods: ["GET", "POST", "PUT", "DELETE"],
     }
   ));
