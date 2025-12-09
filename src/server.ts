@@ -14,9 +14,7 @@ import { AdoptionRoutes } from "./Adoption/routes/Adoption.routes.js";
 
 const allowedOrigins = [
   "https://petdot-fronend.vercel.app",
-  "https://petdot-fronend-g9hwxzf9n-ale-ludws-projects.vercel.app",
   "http://localhost:5173",
-  "https://petdot-fronend-542exzblm-ale-ludws-projects.vercel.app/"
 ]
 
 class Server {
