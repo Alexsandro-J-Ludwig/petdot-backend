@@ -12,6 +12,13 @@ import { ShelterRoutes } from "./shelter/routes/Shelter.routes.js";
 import { AnimalRoutes } from "./animal/route/Animal.route.js";
 import { AdoptionRoutes } from "./Adoption/routes/Adoption.routes.js";
 
+const allowedOrigins = [
+  "https://petdot-fronend.vercel.app",
+  "https://petdot-fronend-g9hwxzf9n-ale-ludws-projects.vercel.app",
+  "http://localhost:5173",
+  "https://petdot-fronend-542exzblm-ale-ludws-projects.vercel.app/"
+]
+
 class Server {
   private connection: Connection;
   private app: Application;
@@ -22,7 +29,17 @@ class Server {
     this.app = e();
     this.app.use(e.json({ limit: "20mb" }));
     this.app.use(e.urlencoded({ extended: true, limit: "20mb" }));
-    this.app.use(cors());
+    this.app.use(cors(
+      {
+      origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Origin not allowed by CORS"));
+    },
+      methods: ["GET", "POST", "PUT", "DELETE"],
+    }
+  ));
 
     this.connection = new Connection();
 
